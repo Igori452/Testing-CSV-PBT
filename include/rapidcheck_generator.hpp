@@ -56,37 +56,35 @@ inline Gen<std::string> csvString() {
 
 // Поврежденный CSV
 inline Gen<std::string> corruptedCSV() {
-    return gen::map(csvString(), [](std::string csv) {
-        if (csv.empty()) return csv;
+    return gen::apply(
+        [](std::string csv, int pos, int type, char c) {
+            if (csv.empty()) return csv;
 
-        return *gen::apply(
-            [](std::string s, int pos, int type, char c) {
-                pos = pos % (s.size() + 1);
+            pos = pos % (csv.size() + 1);
 
-                switch (type % 4) {
-                    case 0:
-                        if (!s.empty() && pos < s.size())
-                            s.erase(pos, 1);
-                        break;
-                    case 1:
-                        s.insert(pos, 1, c);
-                        break;
-                    case 2:
-                        if (pos < s.size())
-                            s[pos] = '"';
-                        break;
-                    case 3:
-                        s.insert(pos, "\n");
-                        break;
-                }
-                return s;
-            },
-            gen::just(csv),
-            gen::arbitrary<int>(),
-            gen::arbitrary<int>(),
-            gen::inRange<char>(32, 127)
-        );
-    });
+            switch (type % 4) {
+                case 0:
+                    if (!csv.empty() && pos < csv.size())
+                        csv.erase(pos, 1);
+                    break;
+                case 1:
+                    csv.insert(pos, 1, c);
+                    break;
+                case 2:
+                    if (pos < csv.size())
+                        csv[pos] = '"';
+                    break;
+                case 3:
+                    csv.insert(pos, "\n");
+                    break;
+            }
+            return csv;
+        },
+        csvString(),
+        gen::arbitrary<int>(),
+        gen::arbitrary<int>(),
+        gen::inRange<char>(32, 127)
+    );
 }
 
 // Boundary cases

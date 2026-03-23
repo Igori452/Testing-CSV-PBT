@@ -14,7 +14,6 @@ static std::string serializeTable(const std::vector<std::vector<std::string>>& t
 }
 
 VerificationCSV::VerificationCSV(CSVParser* p) : parser(p) {};
-
 void VerificationCSV::setParser(CSVParser* p) {
 	parser = p;
 }
@@ -108,10 +107,105 @@ void VerificationCSV::verification() {
 
 
 CheckMetricsCSV::CheckMetricsCSV(CSVParser* p) : parser(p) {};
-//void CheckMetricsCSV::setParser(CSVParser* p);
-//void CheckMetricsCSV::checkMetrick_1();
-//void CheckMetricsCSV::checkMetrick_2();
-//void CheckMetricsCSV::checkMetrick_3();
-		// ...
+void CheckMetricsCSV::setParser(CSVParser* p) {
+    parser = p;
+}
 
+void CheckMetricsCSV::checkRobustness(int tests) {
+    int success = 0;
+    rc::check("Robustness", [this, &success, tests]() {
+        const auto csv = *rc::gen::corruptedCSV();
+        try {
+            parser->parse(csv);
+            success++;
+        } catch (...) {
+            RC_ASSERT(true); // просто пропускаем
+        }
+    });
+    
+    std::cout << "Robustness: " << (100.0 * success / tests) << "%\n";
+}
 
+void CheckMetricsCSV::checkRecovery(int tests) {
+    double totalScore = 0.0;
+
+    rc::check("Recovery score", [this, &totalScore]() {
+        auto table = *rc::gen::csvTable();
+        auto csv = serializeTable(table);
+
+        // портим CSV
+        auto corrupted = *rc::gen::corruptedCSV();
+        if (corrupted.empty()) corrupted = csv;
+
+        ParseResult parsed = parser->parse(corrupted);
+
+        // Считаем совпадающие ячейки
+        size_t matched = 0;
+        size_t total = 0;
+        for (size_t i = 0; i < std::min(table.size(), parsed.data.size()); i++) {
+            for (size_t j = 0; j < std::min(table[i].size(), parsed.data[i].size()); j++) {
+                if (table[i][j] == parsed.data[i][j]) matched++;
+                total++;
+            }
+        }
+        if (total > 0) totalScore += (double)matched / total;
+    });
+    std::cout << "Average Recovery Score: " << (totalScore / tests * 100.0) << "%\n";
+}
+
+void CheckMetricsCSV::checkConsistency(int tests) {
+    int consistentCount = 0;
+
+    rc::check("Structural consistency", [this, &consistentCount]() {
+        auto csv = *rc::gen::csvString();
+        ParseResult parsed = parser->parse(csv);
+
+        bool consistent = true;
+        if (!parsed.data.empty()) {
+            size_t cols = parsed.data[0].size();
+            for (auto& row : parsed.data)
+                if (row.size() != cols) consistent = false;
+        }
+        if (consistent) consistentCount++;
+    });
+
+    std::cout << "Structural consistency: " << (100.0 * consistentCount / tests) << "%\n";
+}
+
+void CheckMetricsCSV::checkDataLoss(int tests) {
+    double totalRatio = 0.0;
+
+    rc::check("Data loss", [this, &totalRatio]() {
+        auto table = *rc::gen::csvTable();
+        auto csv = serializeTable(table);
+
+        ParseResult parsed = parser->parse(csv);
+
+        size_t originalCells = 0;
+        size_t parsedCells = 0;
+
+        for (auto& row : table) originalCells += row.size();
+        for (auto& row : parsed.data) parsedCells += row.size();
+
+        if (originalCells > 0)
+            totalRatio += (double)parsedCells / originalCells;
+    });
+
+    std::cout << "Data loss ratio: " << (totalRatio / tests) << "\n";
+}
+
+void CheckMetricsCSV::checkPerformance(int tests) {
+    double totalTimeMs = 0.0;
+
+    rc::check("Performance", [this, &totalTimeMs]() {
+        auto csv = *rc::gen::csvString();
+
+        auto start = std::chrono::steady_clock::now();
+        parser->parse(csv);
+        auto end = std::chrono::steady_clock::now();
+
+        totalTimeMs += std::chrono::duration<double, std::milli>(end - start).count();
+    });
+    
+    std::cout << "Average parse time: " << (totalTimeMs / tests) << " ms\n";
+}

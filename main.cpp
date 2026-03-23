@@ -1,11 +1,20 @@
 #include "include/user_wrapper.hpp"
+#include "include/csv_tester.hpp"
 #include <iostream>
 
 int main() {
-    
-    auto parsers = ParserManager::getParser("rapidcsv");
+    //"rapidcsv", "fastcsv"
+    auto parser = ParserManager::getParser("fastcsv");
 
-    parsers->parse("sdsdsd sd");
+    VerificationCSV verificationCSV(parser.get());
+    verificationCSV.verification();
+
+    CheckMetricsCSV checkMetricsCSV(parser.get());
+    checkMetricsCSV.checkRobustness();
+    checkMetricsCSV.checkRecovery();
+    checkMetricsCSV.checkConsistency();
+    checkMetricsCSV.checkDataLoss();
+    checkMetricsCSV.checkPerformance();
 
     return 0;
 }
