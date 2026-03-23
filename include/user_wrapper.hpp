@@ -1,11 +1,10 @@
 #ifndef USER_WRAPPER_H
 #define USER_WRAPPER_H
 
-#include "csv_tester.h"
-
 #include <memory>
 #include <map>
 #include <functional>
+#include <string>
 
 struct ParseResult {
     std::vector<std::vector<std::string>> data;

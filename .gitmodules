@@ -1,0 +1,6 @@
+[submodule "external/rapidcsv"]
+	path = external/rapidcsv
+	url = https://github.com/d99kris/rapidcsv.git
+[submodule "lib/rapidcheck"]
+	path = lib/rapidcheck
+	url = https://github.com/emil-e/rapidcheck.git

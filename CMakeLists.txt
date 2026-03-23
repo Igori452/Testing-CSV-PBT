@@ -6,10 +6,10 @@ project(CSV_Parser_Test)
 # =============================================
 
 # Способ подключения: "CMAKE", "HEADER_ONLY", "SOURCE_FILES", "PREBUILT"
-set(PARSER_TYPE "HEADER_ONLY")
+set(PARSER_TYPE "CMAKE")
 
 # Имя таргета (для CMAKE) или путь к заголовку (для HEADER_ONLY)
-set(PARSER_TARGET_OR_PATH "include/myparser.hpp")
+set(PARSER_TARGET_OR_PATH external/rapidcsv)
 
 # Дополнительные флаги (если нужны)
 set(PARSER_COMPILE_OPTIONS "")
@@ -48,15 +48,28 @@ if (PARSER_COMPILE_OPTIONS)
     target_compile_options(parser_interface INTERFACE ${PARSER_COMPILE_OPTIONS})
 endif()
 
-# =============================================
-# АДАПТЕР ПОЛЬЗОВАТЕЛЯ
-# =============================================
-add_library(user_adapter STATIC parser_wrapper.cpp)
-target_link_libraries(user_adapter PRIVATE parser_interface)
-target_include_directories(user_adapter PRIVATE .)
+add_subdirectory(lib/rapidcheck)
 
-# =============================================
-# ТЕСТОВЫЙ ФРЕЙМВОРК
-# =============================================
-add_executable(csv_test_runner main.cpp)
-target_link_libraries(csv_test_runner PRIVATE user_adapter)
+# СОздание отдельной статической библиотеки (пользовательский адаптер)
+
+add_library(user_adapter STATIC ${CMAKE_CURRENT_SOURCE_DIR}/user_wrappers/user_wrapper.cpp)
+
+target_include_directories(user_adapter PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+# Сборка для конечного исполняемого файла
+add_executable(csv_test_runner 
+    main.cpp 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/csv_tester.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/user_manager.cpp
+)
+
+target_include_directories(csv_test_runner PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_link_libraries(csv_test_runner PRIVATE
+    user_adapter
+    rapidcheck
+)

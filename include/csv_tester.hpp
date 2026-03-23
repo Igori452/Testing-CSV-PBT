@@ -1,10 +1,7 @@
 #ifndef CSV_TESTER_H
 #define CSV_TESTER_H
 
-#include <vector>
-#include <string>
-
-class CSVParser;
+#include "user_wrapper.hpp"
 
 class VerificationCSV {
 	private:
