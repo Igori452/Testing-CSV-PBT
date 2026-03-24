@@ -3,8 +3,8 @@
 #include <iostream>
 
 int main() {
-    //"rapidcsv", "fastcsv"
-    auto parser = ParserManager::getParser("fastcsv");
+    //"rapidcsv", "fastcsv", "pedrovicente"
+    auto parser = ParserManager::getParser("rapidcsv");
 
     VerificationCSV verificationCSV(parser.get());
     verificationCSV.verification();
@@ -12,9 +12,12 @@ int main() {
     CheckMetricsCSV checkMetricsCSV(parser.get());
     checkMetricsCSV.checkRobustness();
     checkMetricsCSV.checkRecovery();
-    checkMetricsCSV.checkConsistency();
-    checkMetricsCSV.checkDataLoss();
     checkMetricsCSV.checkPerformance();
+    checkMetricsCSV.checkDataPreservation();
+    checkMetricsCSV.checkRoundtrip();
+    checkMetricsCSV.checkStructuralIntegrity();
+
+    checkMetricsCSV.debugGenerator();
 
     return 0;
 }

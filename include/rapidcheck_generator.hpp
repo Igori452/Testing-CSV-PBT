@@ -8,10 +8,14 @@
 namespace rc {
 namespace gen {
 
-// Генератор строки (печатаемые ASCII)
+// Использовать gen::inRange с безопасными диапазонами
 inline Gen<std::string> simpleString() {
     return gen::container<std::string>(
-        gen::inRange<char>(32, 127)
+        gen::oneOf(
+            gen::inRange<char>('a', 'z'),  // a-z
+            gen::inRange<char>('A', 'Z'),  // A-Z
+            gen::inRange<char>('0', '9')   // 0-9
+        )
     );
 }
 
@@ -31,6 +35,30 @@ inline Gen<std::vector<std::string>> csvRow() {
 inline Gen<std::vector<std::vector<std::string>>> csvTable() {
     return gen::container<std::vector<std::vector<std::string>>>(
         csvRow()
+    );
+}
+
+// CSV таблица с фиксированными размерами (просто обрезаем)
+inline Gen<std::vector<std::vector<std::string>>> csvTable(int rows, int cols) {
+    return gen::map(
+        gen::container<std::vector<std::vector<std::string>>>(
+            gen::container<std::vector<std::string>>(csvField())
+        ),
+        [rows, cols](std::vector<std::vector<std::string>> table) {
+            // Обрезаем до rows строк
+            if (table.size() > static_cast<size_t>(rows)) {
+                table.resize(rows);
+            }
+            
+            // Обрезаем каждую строку до cols колонок
+            for (auto& row : table) {
+                if (row.size() > static_cast<size_t>(cols)) {
+                    row.resize(cols);
+                }
+            }
+            
+            return table;
+        }
     );
 }
 
@@ -81,6 +109,39 @@ inline Gen<std::string> corruptedCSV() {
             return csv;
         },
         csvString(),
+        gen::arbitrary<int>(),
+        gen::arbitrary<int>(),
+        gen::inRange<char>(32, 127)
+    );
+}
+
+// Повреждение существующего CSV (без уровней силы)
+inline Gen<std::string> corruptedCSV(const std::string& original) {
+    return gen::apply(
+        [original](int type, int pos, char c) {
+            std::string csv = original;
+            if (csv.empty()) return csv;
+            
+            pos = pos % (csv.size() + 1);
+            
+            switch (type % 4) {
+                case 0: // удаление символа
+                    if (!csv.empty() && pos < csv.size())
+                        csv.erase(pos, 1);
+                    break;
+                case 1: // вставка символа
+                    csv.insert(pos, 1, c);
+                    break;
+                case 2: // замена на кавычку
+                    if (pos < csv.size())
+                        csv[pos] = '"';
+                    break;
+                case 3: // вставка переноса строки
+                    csv.insert(pos, "\n");
+                    break;
+            }
+            return csv;
+        },
         gen::arbitrary<int>(),
         gen::arbitrary<int>(),
         gen::inRange<char>(32, 127)

@@ -22,9 +22,11 @@ class CheckMetricsCSV {
 		void setParser(CSVParser* p);
 		void checkRobustness(int tests = 500);		// 1. Robustness metric (успешное парсирование)
 		void checkRecovery(int tests = 300);		// 2. Recovery metric (сравнение с оригиналом после порчи)
-		void checkConsistency(int tests = 300);		// 3. Structural Consistency (таблица прямоугольная)
-		void checkDataLoss(int tests = 300); 		// 4. Data loss metric
+		void checkStructuralIntegrity(int tests = 300);		// 3. Structural Consistency (таблица прямоугольная)
+		void checkDataPreservation(int tests = 300); 		// 4. Data loss metric
 		void checkPerformance(int tests = 200);		// 5. Average parse time
-};
+		void checkRoundtrip(int tests = 200);
+		void debugGenerator();
+	};
 
 #endif
