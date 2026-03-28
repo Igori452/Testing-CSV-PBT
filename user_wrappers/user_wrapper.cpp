@@ -1,14 +1,17 @@
 #include "../include/user_wrapper.hpp"
 
+// заголовочные файл парсеров
 #include "../external/rapidcsv/src/rapidcsv.h"
 #include "../external/fast-cpp-csv-parser/csv.h"
+#include "../external/csv-parser/csv.hh"
+
+
 #include <chrono>
 #include <fstream>
 
 // ===== ТУТ ПОЛЬЗОВАТЕЛЬ ПИШЕТ СВОИ РЕАЛИЗАЦИИ =====
 
-// Пример класса адаптера для тестирования парсера RapidCSV
-
+// Пример класса адаптера для тестирования парсера rapidcsv
 class RapidCSV : public CSVParser {
     public:
         ParseResult parse (const std::string& csv_data) override {
@@ -48,10 +51,10 @@ class RapidCSV : public CSVParser {
         }
 };
 
-
+// Пример класса адаптера для тестирования парсера fast-cpp-csv-parser
 class FastCSVParser : public CSVParser {
 private:
-    // Простой CSV split (без кавычек — но для PBT даже лучше)
+    // Простой CSV split
     std::vector<std::string> split(const std::string& line) {
         std::vector<std::string> result;
         std::string current;
@@ -102,28 +105,11 @@ public:
     }
 
     std::string name() const override {
-        return "FastCSV (LineReader)";
+        return "FastCSV";
     }
 };
 
-// ===== ТУТ ПОЛЬЗОВАТЕЛЬ РЕГИСТРИРУЕТ СВОИ РЕАЛИЗАЦИИ =====
-
-static auto _ = (ParserManager::registerParser("rapidcsv", []() {
-    return std::make_unique<RapidCSV>();
-}), 0);
-
-static auto __ = (ParserManager::registerParser("fastcsv", []() {
-    return std::make_unique<FastCSVParser>();
-}), 0);
-
-// ===== Адаптер для парсера pedro-vicente/csv-parser =====
-// GitHub: https://github.com/pedro-vicente/csv-parser
-
-// Предварительно нужно скопировать файлы csv.hh и csv.cc из репозитория
-// в папку external/csv-parser/ вашего проекта
-/*
-#include "../external/csv-parser/csv.hh"  // заголовочный файл парсера
-
+// Пример класса адаптера для тестирования парсера csv-parser
 class PedroVicenteCSVParser : public CSVParser {
 public:
     ParseResult parse(const std::string& csv_data) override {
@@ -147,7 +133,6 @@ public:
             outFile << csv_data;
             outFile.close();
             
-            // Используем парсер из студенческого проекта
             read_csv_t parser;  // класс из csv.hh
             
             // Открываем файл
@@ -194,7 +179,16 @@ public:
     }
 };
 
-// ===== Регистрация парсера =====
-static auto _pedro = (ParserManager::registerParser("pedrovicente", []() {
+// ===== ТУТ ПОЛЬЗОВАТЕЛЬ РЕГИСТРИРУЕТ СВОИ РЕАЛИЗАЦИИ =====
+
+static auto _rapidcsv = (ParserManager::registerParser("rapidcsv", []() {
+    return std::make_unique<RapidCSV>();
+}), 0);
+
+static auto _fastcsv = (ParserManager::registerParser("fastcsv", []() {
+    return std::make_unique<FastCSVParser>();
+}), 0);
+
+static auto _pedrovicente = (ParserManager::registerParser("pedrovicente", []() {
     return std::make_unique<PedroVicenteCSVParser>();
-}), 0);*/
+}), 0);

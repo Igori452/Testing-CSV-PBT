@@ -1,10 +1,9 @@
 #include "include/user_wrapper.hpp"
 #include "include/csv_tester.hpp"
-#include <iostream>
 
 int main() {
     //"rapidcsv", "fastcsv", "pedrovicente"
-    auto parser = ParserManager::getParser("rapidcsv");
+    auto parser = ParserManager::getParser("pedrovicente");
 
     VerificationCSV verificationCSV(parser.get());
     verificationCSV.verification();
@@ -16,8 +15,6 @@ int main() {
     checkMetricsCSV.checkDataPreservation();
     checkMetricsCSV.checkRoundtrip();
     checkMetricsCSV.checkStructuralIntegrity();
-
-    checkMetricsCSV.debugGenerator();
 
     return 0;
 }

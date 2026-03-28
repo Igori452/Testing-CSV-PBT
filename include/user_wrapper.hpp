@@ -12,6 +12,7 @@ struct ParseResult {
     double time_ms = 0;
 };
 
+// Abstract class
 class CSVParser {
 	public:
         virtual ~CSVParser() = default;

@@ -8,7 +8,7 @@
 namespace rc {
 namespace gen {
 
-// Использовать gen::inRange с безопасными диапазонами
+// Общий генератор
 inline Gen<std::string> simpleString() {
     return gen::container<std::string>(
         gen::oneOf(
@@ -62,7 +62,7 @@ inline Gen<std::vector<std::vector<std::string>>> csvTable(int rows, int cols) {
     );
 }
 
-// CSV → string
+// CSV -> string
 inline Gen<std::string> csvString() {
     return gen::map(csvTable(),
         [](const std::vector<std::vector<std::string>> &table) {
@@ -115,7 +115,7 @@ inline Gen<std::string> corruptedCSV() {
     );
 }
 
-// Повреждение существующего CSV (без уровней силы)
+// Повреждение существующего CSV
 inline Gen<std::string> corruptedCSV(const std::string& original) {
     return gen::apply(
         [original](int type, int pos, char c) {
