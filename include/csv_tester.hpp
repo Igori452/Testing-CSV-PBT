@@ -3,6 +3,8 @@
 
 #include "user_wrapper.hpp"
 
+void dumpGeneratedSamples(const std::string& filename = "generated_csv_samples.txt", int count = 500);
+
 class VerificationCSV {
 	private:
 		CSVParser* parser;

@@ -2,8 +2,15 @@
 #include "include/csv_tester.hpp"
 
 int main() {
+    // Достаем данные из seed
+    const char* dumpEnv = std::getenv("DUMP_CSV_SAMPLES");
+    if (dumpEnv && std::string(dumpEnv) == "1") {
+        dumpGeneratedSamples();
+        return 0;
+    }
+
     //"rapidcsv", "fastcsv", "pedrovicente"
-    auto parser = ParserManager::getParser("pedrovicente");
+    auto parser = ParserManager::getParser("rapidcsv");
 
     VerificationCSV verificationCSV(parser.get());
     verificationCSV.verification();

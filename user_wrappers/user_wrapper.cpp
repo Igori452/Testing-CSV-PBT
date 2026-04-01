@@ -109,6 +109,7 @@ public:
     }
 };
 
+/*
 // Пример класса адаптера для тестирования парсера csv-parser
 class PedroVicenteCSVParser : public CSVParser {
 public:
@@ -178,7 +179,7 @@ public:
         return "PedroVicenteCSV (student project)";
     }
 };
-
+*/
 // ===== ТУТ ПОЛЬЗОВАТЕЛЬ РЕГИСТРИРУЕТ СВОИ РЕАЛИЗАЦИИ =====
 
 static auto _rapidcsv = (ParserManager::registerParser("rapidcsv", []() {
@@ -189,6 +190,7 @@ static auto _fastcsv = (ParserManager::registerParser("fastcsv", []() {
     return std::make_unique<FastCSVParser>();
 }), 0);
 
+/*
 static auto _pedrovicente = (ParserManager::registerParser("pedrovicente", []() {
     return std::make_unique<PedroVicenteCSVParser>();
-}), 0);
+}), 0);*/

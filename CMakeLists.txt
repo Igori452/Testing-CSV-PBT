@@ -6,14 +6,14 @@ project(CSV_Parser_Test)
 # =============================================
 
 # Способ подключения: "CMAKE", "HEADER_ONLY", "SOURCE_FILES", "PREBUILT"
-set(PARSER_TYPE "SOURCE_FILES")
+set(PARSER_TYPE "CMAKE")
 
 # Путь к парсеру:
 #   - для CMAKE: путь к директории с CMakeLists.txt
 #   - для HEADER_ONLY: путь к директории с заголовками
 #   - для SOURCE_FILES: путь к директории с .cpp/.cc файлами
 #   - для PREBUILT: имя библиотеки
-set(PARSER_PATH "external/csv-parser")
+set(PARSER_PATH "external/rapidcsv")
 
 # Дополнительные флаги (если нужны)
 set(PARSER_COMPILE_OPTIONS "-Wno-unused-parameter" "-Wno-sign-compare")
