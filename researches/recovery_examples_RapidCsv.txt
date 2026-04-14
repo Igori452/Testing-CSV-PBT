@@ -1,0 +1,1407 @@
+=== RECOVERY RATE TEST EXAMPLES ===
+Parser: RapidCsv
+Total tests: 300
+Recovery condition: parsedRows >= originalRows/2
+====================================
+
+[Test 1]
+Original CSV (clean): 
+Original rows: 0
+Corrupted CSV: 
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 2]
+Original CSV (clean): 
+Original rows: 1
+Corrupted CSV: 
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 3]
+Original CSV (clean): A,
+,
+Original rows: 2
+Corrupted CSV: ,
+,
+Parser extracted:
+  Row 0: [],[]
+  Row 1: [],[]
+Parsed rows: 2
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 4]
+Original CSV (clean): 
+Original rows: 0
+Corrupted CSV: 
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 5]
+Original CSV (clean): 0b0
+Original rows: 1
+Corrupted CSV: 0b0
+Parser extracted:
+  Row 0: [0b0]
+Parsed rows: 1
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 6]
+Original CSV (clean): bBAa,0,0a
+0A0AB,aaA,BB0
+bAbB,aB,
+Original rows: 3
+Corrupted CSV: bBAa,0,0a
+0A0ABaaA,BB0
+bAbB,aB,
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 7]
+Original CSV (clean): a0B
+0B00B,00,00
+Original rows: 2
+Corrupted CSV: aB
+0B00B,00,00
+Parser extracted:
+  Row 0: [aB]
+  Row 1: [0B00B]
+Parsed rows: 2
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 8]
+Original CSV (clean): aAacb,bb01,B100c0
+Original rows: 1
+Corrupted CSV: aAacb,bb01,B100c0
+Parser extracted:
+  Row 0: [aAacb],[bb01],[B100c0]
+Parsed rows: 1
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 9]
+Original CSV (clean): 1C00
+
+0
+Original rows: 3
+Corrupted CSV: 1C00
+
+0
+Parser extracted:
+  Row 0: [1C00]
+  Row 1: []
+  Row 2: [0]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 10]
+Original CSV (clean): cbAa,cc,b1aAbab
+Original rows: 1
+Corrupted CSV: cbAa,cc,b1aAb!ab
+Parser extracted:
+  Row 0: [cbAa],[cc],[b1aAb!ab]
+Parsed rows: 1
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 11]
+Original CSV (clean): 000A0,b0C
+ACc1CabCC,AbA,bb
+,A,a10AcAb
+Original rows: 3
+Corrupted CSV: 000A0,b0C
+ACc1CabCC,AbA,bb
+,A,a10AcAb
+Parser extracted:
+  Row 0: [000A0],[b0C]
+  Row 1: [ACc1CabCC],[AbA]
+  Row 2: [],[A]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 12]
+Original CSV (clean): Babb0Ca,10A0B0Cc
+a1b00d001d
+Original rows: 2
+Corrupted CSV: Babb0Ca,100B0Cc
+a1b00d001d
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 13]
+Original CSV (clean): aCCdD1dD
+cbaDD1dB1B0,BaCDA1a1,10
+01a0b1CAb,AA100b,
+Original rows: 3
+Corrupted CSV: aCCdD1dD
+cbaDD1dB1B0,BaCDA1a1,10
+01a0b1CAb,AA100b,
+Parser extracted:
+  Row 0: [aCCdD1dD]
+  Row 1: [cbaDD1dB1B0]
+  Row 2: [01a0b1CAb]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 14]
+Original CSV (clean): AAaD1bBBbAb,BC11CbC,1bB1d
+0ac1Cb1A,1D,a0Bd1DC1ab
+Original rows: 2
+Corrupted CSV: AAaD1bBBbAb,BC11CbC,1bB1d
+0ac1Cb1A,1D,a0Bd1D1ab
+Parser extracted:
+  Row 0: [AAaD1bBBbAb],[BC11CbC],[1bB1d]
+  Row 1: [0ac1Cb1A],[1D],[a0Bd1D1ab]
+Parsed rows: 2
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 15]
+Original CSV (clean): DacdDB,B0110caBB10bb1,0A1
+00,Dbb,
+CBd0d10cb00A,Aa,b000BaA1D01B
+Original rows: 3
+Corrupted CSV: DacdDB,B0110caBB10bb1,0A1
+00,Dbb,
+CBd0d10cb00A,Aa,b000BaA1D01B
+Parser extracted:
+  Row 0: [DacdDB],[B0110caBB10bb1],[0A1]
+  Row 1: [00],[Dbb],[]
+  Row 2: [CBd0d10cb00A],[Aa],[b000BaA1D01B]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 16]
+Original CSV (clean): 1bB1Baa1b00,Edcbd1bCecc1A,10ED
+dCaAC10d1A0,dCcBD11B,ceb11bE
+0
+Original rows: 3
+Corrupted CSV: 1bB1Baa1b00,Edcbd1bCecc1A,10ED
+dCaAC10d1A0,dCcBD11B,ceb11bE
+0
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 17]
+Original CSV (clean): bebE0d0ab01,bA1eDa0c0ccC,0cEAdca1DDDCCBe
+CA0d1E0Ac1B00a,e1d1c1e0EBed,d
+
+Original rows: 3
+Corrupted CSV: bebE0d0ab01,"A1eDa0c0ccC,0cEAdca1DDDCCBe
+CA0d1E0Ac1B00a,e1d1c1e0EBed,d
+
+Parser extracted:
+  Row 0: [bebE0d0ab01],["A1eDa0c0ccC,0cEAdca1DDDCCBe]
+  Row 1: [CA0d1E0Ac1B00a],[e1d1c1e0EBed]
+Parsed rows: 2
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 18]
+Original CSV (clean): 0bDEA00ac0cd,eBacD1,1a1111D01
+Daae1d0cbCB,e1D000ab10c,
+Ea11A11,00e0Da1aCCD,DaDC1B
+Original rows: 3
+Corrupted CSV: 0bDEA00ac0cd,eBacD1,1a1111D01
+Daae1d0cbCB,e1D000ab10c,
+Ea11A11,00e0Da1aCCD,DaDC1B
+Parser extracted:
+  Row 0: [0bDEA00ac0cd],[eBacD1],[1a1111D01]
+  Row 1: [Daae1d0cbCB],[e1D000ab10c],[]
+  Row 2: [Ea11A11],[00e0Da1aCCD],[DaDC1B]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 19]
+Original CSV (clean): 0Bc,C1DbABc10,B1aC0D
+E1b0A1AD0Eb,,001de00c00A
+BAc1cbaEadDdBa,C0011BD0e0bA,eadA0beCAaDa100cD
+Original rows: 3
+Corrupted CSV: 0&Bc,C1DbABc10,B1aC0D
+E1b0A1AD0Eb,,001de00c00A
+BAc1cbaEadDdBa,C0011BD0e0bA,eadA0beCAaDa100cD
+Parser extracted:
+  Row 0: [0&Bc],[C1DbABc10],[B1aC0D]
+  Row 1: [E1b0A1AD0Eb],[],[001de00c00A]
+  Row 2: [BAc1cbaEadDdBa],[C0011BD0e0bA],[eadA0beCAaDa100cD]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 20]
+Original CSV (clean): ,A00e12E21E22B,1a
+fb0CAE0010,0Bd0BD,220C0FF
+22Def0AfBfDaEDC,d,1DB22aCCCe2B1c
+Original rows: 3
+Corrupted CSV: ,A00e12E21E22B,1a
+fb0CAE0010,0Bd0BD,220C0FF
+22Def0AfBfDaEDC,d,1DB22aCCCe2B1c
+Parser extracted:
+  Row 0: [],[A00e12E21E22B],[1a]
+  Row 1: [fb0CAE0010],[0Bd0BD],[220C0FF]
+  Row 2: [22Def0AfBfDaEDC],[d],[1DB22aCCCe2B1c]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 21]
+Original CSV (clean): AE2FfaF100BFe0CBBCFC
+1F1CaA0Ca0B2dB
+2Ec,Ca0Aab1Aadc221CbCcc,Bb201D2
+Original rows: 3
+Corrupted CSV: AE2FfaF100BFe0CBBCFC
+1F1CaA0Ca0B2dB
+2Ec,Ca0Aab1Aadc221CbCcc,Bb201D2
+Parser extracted:
+  Row 0: [AE2FfaF100BFe0CBBCFC]
+  Row 1: [1F1CaA0Ca0B2dB]
+  Row 2: [2Ec]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 22]
+Original CSV (clean): ,,10
+2D2,bB02EfaA1cdFA2aD11,ef
+A0d20B1e0A0,Aabb0f2abdf1dB,0FCFe022Cdf1
+Original rows: 3
+Corrupted CSV: ,,10
+2D2,bB02EfaA1cdFA2aD11,ef
+A0d20B1e0A0,Aabb0f2abdf1dB,0FCFe022Cdf1
+Parser extracted:
+  Row 0: [],[],[10]
+  Row 1: [2D2],[bB02EfaA1cdFA2aD11],[ef]
+  Row 2: [A0d20B1e0A0],[Aabb0f2abdf1dB],[0FCFe022Cdf1]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 23]
+Original CSV (clean): aBDd2D1A2DfEa,00,20Ef2b1
+Ba2F0cfBceEDC2a21011,1fce210D2ceAcCbbCf,EbBcf20ec2F0F2c
+EE2,2B02fd2BE,21Bc22fd1D1eEdaEe1F22
+Original rows: 3
+Corrupted CSV: aBDd2D1A2DfEa,00,20Ef2b1
+Ba2F0cfBceEDC2a21011,1fce210D2ceAcCbbCf,EbBcf20ec2F0F2c
+EE2,202fd2BE,21Bc22fd1D1eEdaEe1F22
+Parser extracted:
+  Row 0: [aBDd2D1A2DfEa],[00],[20Ef2b1]
+  Row 1: [Ba2F0cfBceEDC2a21011],[1fce210D2ceAcCbbCf],[EbBcf20ec2F0F2c]
+  Row 2: [EE2],[202fd2BE],[21Bc22fd1D1eEdaEe1F22]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 24]
+Original CSV (clean): 01a1cCb1,00AEggGe2,C0bcG1ccCCBCGEfbc2BfG2
+2egbD0dBe1GBbEbc12d0dc,0B22,aA1C2eFAAda2d
+bBFg00dgBB22BDBF2,b0BEGBdG,0bD2Ffg2
+Original rows: 3
+Corrupted CSV: 01a1cCb1,00AEggGe2,C0bcG1ccCCBCGEfbc2BfG2
+2egbD0dBe1GBbEbc12d0dc,0B22,aA1C2eFAAda2d
+bBFg00dgBB22BDBF2,b0BEGdG,0bD2Ffg2
+Parser extracted:
+  Row 0: [01a1cCb1],[00AEggGe2],[C0bcG1ccCCBCGEfbc2BfG2]
+  Row 1: [2egbD0dBe1GBbEbc12d0dc],[0B22],[aA1C2eFAAda2d]
+  Row 2: [bBFg00dgBB22BDBF2],[b0BEGdG],[0bD2Ffg2]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 25]
+Original CSV (clean): F,1dcabg00DGFEg1Cg,000ecDAE
+FFCceF2Ae2a2FA10E,f2fF0gGa11EaFeCE,B0AaFC
+g2021210AAceaG2e1B1deA,c11122aEg0GdddE,dgcdbGbFDfba01DA0BG2c0gf
+Original rows: 3
+Corrupted CSV: F,1dcabg00DGFEg1Cg,000ecDAE
+FFCceF2Ae2a2FA10E,f2fF0gGa11EaFeCE,B0AaFC
+g2021210AAceaG2e1B1deA,c11122aEg0GdddE,dgcdbGbFDfba01DA0BG2c0gf
+Parser extracted:
+  Row 0: [F],[1dcabg00DGFEg1Cg],[000ecDAE]
+  Row 1: [FFCceF2Ae2a2FA10E],[f2fF0gGa11EaFeCE],[B0AaFC]
+  Row 2: [g2021210AAceaG2e1B1deA],[c11122aEg0GdddE],[dgcdbGbFDfba01DA0BG2c0gf]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 26]
+Original CSV (clean): DGdG100F,21AcA1ea0,B1F01E1aAAE2bcdcC2D1b
+20CF0a102eA2Fb2DfC,11fcF,bg02000aE
+dCDCfDa,Bggd
+Original rows: 3
+Corrupted CSV: DGdG100F,21AcA1ea0,B1F01E1aAAE2bcdcC2D1b
+20CF0a102eA2Fb2DfC,11fcF,bg02000aE
+dCDCfDa,Bggd
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 27]
+Original CSV (clean): 02fcDDAB0gC1AC2C21B2dA1eF,b20F2Gf1CB0C0gcF12BA,EG0FEad
+21eFa0f2CD1d21a,D1GgbgBdDgbg2cc,Cb
+012C2F2FAC1efB0Cf1g00,DeDFdF0ebD0AFCg11b12B21c,0dDbe0cdeaEfG1
+Original rows: 3
+Corrupted CSV: 02fcDDAB0gC1AC2C21B2dA1eF,b20F2Gf1CB0C0gcF12BA,EG0FEad
+21
+eFa0f2CD1d21a,D1GgbgBdDgbg2cc,Cb
+012C2F2FAC1efB0Cf1g00,DeDFdF0ebD0AFCg11b12B21c,0dDbe0cdeaEfG1
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 28]
+Original CSV (clean): gGFDcB1BE20G,EG0dAg0geC2C1G0A1,
+d12gCda1e01f1AgaF,,bdbGd0A1eDbFAfbFCc1CEE10
+c01,1eB0B0ee1D0021EeEbGCaEd1gB
+Original rows: 3
+Corrupted CSV: gGFDcB1BE20G,EG0dAg0geC2C1G0A1,
+d12gCda1e01f1AgaF,,bdbGd0A1eDbFAfb FCc1CEE10
+c01,1eB0B0ee1D0021EeEbGCaEd1gB
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 29]
+Original CSV (clean): E2Fc0dHA1cgdf11dd,02H1ChChCHfB2GbF,E0cH1dhEg2dcg1F201
+
+BE0b0hg0BcB1DeF,0eh,f
+Original rows: 3
+Corrupted CSV: E2Fc0dHA1cgdf11dd,02H1ChChCHfB2GbF,E0cH1dhEg2dcg1F201
+
+BE0b0hg0BcB1DeF,0eh,f
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 30]
+Original CSV (clean): ghFa1fAh2gc1cab2,cH2gbeFe0Dc1efD0ha,BaA1
+h00E200c0CB,EeghGcah0b0fDhE01ag1Eg2,g0h1c02a0e0DCHgdCe0E2bDDE
+00G2c2h1dHgDc,ccFDdF1baaga21aFBC,Dh0bc
+Original rows: 3
+Corrupted CSV: ghFa1fAh2gc1cab2,cH2gbeFe0Dc1efD0ha,BaA1
+h00E200c0CB,EeghGcah0b0fDhE01ag1Eg2,g0h1c02a0e0DCHgdCe0E2bDDE
+00G2c2h1dHgDc,ccFDdF1baaga21aFBC,Dh0bc
+Parser extracted:
+  Row 0: [ghFa1fAh2gc1cab2],[cH2gbeFe0Dc1efD0ha],[BaA1]
+  Row 1: [h00E200c0CB],[EeghGcah0b0fDhE01ag1Eg2],[g0h1c02a0e0DCHgdCe0E2bDDE]
+  Row 2: [00G2c2h1dHgDc],[ccFDdF1baaga21aFBC],[Dh0bc]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 31]
+Original CSV (clean): AgFD01dA2D2aafH2fHeFAa,H0eG1gfheFA222g00hCbe2cFEfEAC,0EG
+Aa0gdHe0ed00FGhE,BbaDAc00HhHcHA,hh0cbHg1cD1GcbaG2HBdGDEaBH0
+2B2g1h1DdgA11CaA2CeDb12Gf,FG1H202BgFHc00fh02Ff0ba,G1FC1ghcFD
+Original rows: 3
+Corrupted CSV: AgFD01dA2D2aafH2fHeFAa,H0eG1gfheFA222g00hCbe2cFEfEAC,0EG
+Aa0gdHe0ed00FGhE,BbaDAc00HhHcHA,hh0cbHg1cD1GcbaG2HBdGDEaBH0
+2B2g1h1DdgA11CaA2CeDb12Gf,FG1H202BgFHc00fh02Ff0ba,G1FC1ghcFD
+Parser extracted:
+  Row 0: [AgFD01dA2D2aafH2fHeFAa],[H0eG1gfheFA222g00hCbe2cFEfEAC],[0EG]
+  Row 1: [Aa0gdHe0ed00FGhE],[BbaDAc00HhHcHA],[hh0cbHg1cD1GcbaG2HBdGDEaBH0]
+  Row 2: [2B2g1h1DdgA11CaA2CeDb12Gf],[FG1H202BgFHc00fh02Ff0ba],[G1FC1ghcFD]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 32]
+Original CSV (clean): Cgd0fGHffEgh2GfBaA1,021AGeBegag0hHhh2hdg1Hd1,C201FaCCbFgDBc
+2b0D20EA0da1fc,baGBh2Hb12,a
+H0hFhdE01HdEC0h1e21,hF1bhEhA1FFgeDH2,20cbdGb11
+Original rows: 3
+Corrupted CSV: Cgd0fGHffEgh2GfBaA1,021AGeBegag0hHhh2hdg1Hd1,C201FaCCbFgDBc
+2b0D20A0da1fc,baGBh2Hb12,a
+H0hFhdE01HdEC0h1e21,hF1bhEhA1FFgeDH2,20cbdGb11
+Parser extracted:
+  Row 0: [Cgd0fGHffEgh2GfBaA1],[021AGeBegag0hHhh2hdg1Hd1],[C201FaCCbFgDBc]
+  Row 1: [2b0D20A0da1fc],[baGBh2Hb12],[a]
+  Row 2: [H0hFhdE01HdEC0h1e21],[hF1bhEhA1FFgeDH2],[20cbdGb11]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 33]
+Original CSV (clean): fg3EIebe3i,iBeciH0,01he320fB0I3Af10hgH2aCADb0H030f
+01IHd,GIahfgDigfedb3bEB2dFbbEa,1HB3e2GB1Ei0aGE3i2Ahf0HG1F3HE
+IbEHgb0EB13a33,0GEc2gH0gEFHeIfHeIb1d,2a
+Original rows: 3
+Corrupted CSV: fg3EIebe3i,iBeciH0,01he320fB0I3Af10hgH2aCADb0H030f
+01IHd,GIahfgDigfedb3bEB2dFbbEa,1HB3e2GB1Ei0aGE3i2Ahf0HG1F3HE
+IbEHgb0EB13a33,0GEc2gH0gE%FHeIfHeIb1d,2a
+Parser extracted:
+  Row 0: [fg3EIebe3i],[iBeciH0],[01he320fB0I3Af10hgH2aCADb0H030f]
+  Row 1: [01IHd],[GIahfgDigfedb3bEB2dFbbEa],[1HB3e2GB1Ei0aGE3i2Ahf0HG1F3HE]
+  Row 2: [IbEHgb0EB13a33],[0GEc2gH0gE%FHeIfHeIb1d],[2a]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 34]
+Original CSV (clean): CC1HFf1g3aBEBf1c01fI,hC1110C3FIE21DGGGIG3cCf0iF22f,e2ich1b
+iI330CI322B333D02,0DIdEbC02g3,h1feFd3DF
+a2dBe3HA22
+Original rows: 3
+Corrupted CSV: CC1HFf1g3aBEBf1c01fI,hC1110C3FIE21DGGGIG3cCf0iF22f,e2ich1b
+iI330CI322B333D02,0DIdEbC02g3,h1feFd3DF
+a2dBe3HA22
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 35]
+Original CSV (clean): ca0g02313g0h31chhEbigdfe2I,b22ad01A23gdId110F1GbH1CI0EI,2Ffa1I0HHE3CcBD1h0
+h21B,dFiaf3A0h2IFaFfhE,D2
+1bIg1FHidg3c1dc2ACAhiB1daf3AI,FE0D13e1I1iAdB1D1EHeA,2312cC00G2adICDceDa13
+Original rows: 3
+Corrupted CSV: ca0g02313g0h31chhEbigdfe2I,b22ad01A23gdId110F1GbH1CI0EI,2Ffa1I0HHE3CcBD1h0
+h21B,dFiaf3A0h2IFaFfhE,D2
+1bIg1FHidg3c1dc2ACAhiB1daf3AI,FE0D13e1I1iAdB1D1EHeA,2312cC00G2adICDceDa13
+Parser extracted:
+  Row 0: [ca0g02313g0h31chhEbigdfe2I],[b22ad01A23gdId110F1GbH1CI0EI],[2Ffa1I0HHE3CcBD1h0]
+  Row 1: [h21B],[dFiaf3A0h2IFaFfhE],[D2]
+  Row 2: [1bIg1FHidg3c1dc2ACAhiB1daf3AI],[FE0D13e1I1iAdB1D1EHeA],[2312cC00G2adICDceDa13]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 36]
+Original CSV (clean): dI22hh10gih3BadBi31c13,be3aC3BdiFbIh2bDHAI200,1a
+1eAbGHI30FDgIgfFbiGBAe,2gg1a2hGe22C,e3c3333E011ae0cf3ha1gfGgB20b
+
+Original rows: 3
+Corrupted CSV: dI22hh10gih3BadBi31c13,be3aC3BdiFbIh2bDHAI200,1a
+1eAbGHI30FDgIgfFbiGBAe,2gg1a2hGe22C,e3c3333E011ae0cf3ha1gfGgB20b
+
+Parser extracted:
+  Row 0: [dI22hh10gih3BadBi31c13],[be3aC3BdiFbIh2bDHAI200],[1a]
+  Row 1: [1eAbGHI30FDgIgfFbiGBAe],[2gg1a2hGe22C],[e3c3333E011ae0cf3ha1gfGgB20b]
+Parsed rows: 2
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 37]
+Original CSV (clean): 1d20gIjB,fFi0bB0AbI3eIfA2fhfEF3jCiG,
+
+3220fbb,h2e311fJ0C00BhJ0feB2JBf,00C1b3fCgJ32FfhE0B0f2j
+Original rows: 3
+Corrupted CSV: 1d20gIjB,fFi0bB0AbI3eIfA2fhfEF3jCiG,
+
+3220fbb,h2e311fJ0C00BhJ0feB2JBf,00C1b3fCgJ32FfhE0B0f2j
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 38]
+Original CSV (clean): Ac201CED1Jb02dEif3fdf1Cj0iJDG,I22jiJefbfHgff2fD,ghhcifD1a3j0EA0jg1IiGE0c1IhdF01Bfi
+Original rows: 1
+Corrupted CSV: Ac201'CED1Jb02dEif3fdf1Cj0iJDG,I22jiJefbfHgff2fD,ghhcifD1a3j0EA0jg1IiGE0c1IhdF01Bfi
+Parser extracted:
+  Row 0: [Ac201'CED1Jb02dEif3fdf1Cj0iJDG],[I22jiJefbfHgff2fD],[ghhcifD1a3j0EA0jg1IiGE0c1IhdF01Bfi]
+Parsed rows: 1
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 39]
+Original CSV (clean): 3Ejg0C202FcD1gHFg2d3CbBG
+I03cjIch3iabbchad3Ec3chAJ210ID,3f2CI2gb210J132DIGh1GaE1hG30g,1GAH1jD103gaJGAe
+10d1j2,Gf210122B0dHGC1eB0hA2H0GBJ1cdEicg,dHD3jhii0bDC32Dh21bfeCBeg
+Original rows: 3
+Corrupted CSV: 3Ejg0C202FcD1gHFg2d3CbBG
+I03cjIch3iabbchad3Ec3chAJ10ID,3f2CI2gb210J132DIGh1GaE1hG30g,1GAH1jD103gaJGAe
+10d1j2,Gf210122B0dHGC1eB0hA2H0GBJ1cdEicg,dHD3jhii0bDC32Dh21bfeCBeg
+Parser extracted:
+  Row 0: [3Ejg0C202FcD1gHFg2d3CbBG]
+  Row 1: [I03cjIch3iabbchad3Ec3chAJ10ID]
+  Row 2: [10d1j2]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 40]
+Original CSV (clean): c1103e1hc3gdbfgeiddBAG0e2fdbc3D1aC,gdG3Ja0Fe1E2IAJB0J0fbf20h,B2b2CeFi3
+
+addcfi32f0hf231I3f2hC1ibbH12J1A0d1chd,32IhdIA2IEjGHGa1jg,eid3h2b3IC2h22Afah3Dji2a1Fc23
+Original rows: 3
+Corrupted CSV: c1103e1hc3gdbfgeiddBAG0e2fdbc3D1aC,gdG3Ja0Fe1E2IAJB0J0fbf20h,B
+2b2CeFi3
+
+addcfi32f0hf231I3f2hC1ibbH12J1A0d1chd,32IhdIA2IEjGHGa1jg,eid3h2b3IC2h22Afah3Dji2a1Fc23
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 41]
+Original CSV (clean): fehI23JEE2J0bGe,Gfj0Hjg02c2Ic123I0B1EeG30e3BIK2D,CGF12Jg12jaeKfkI13GDJjf10
+gjJCJ030EJ201K2fCC211kbKb0AH,kBE0ce3233,a0ede3HE3I0J0B3EC0f030I0FA3
+Ki23dDaF3K1CCIFb23eCdbhj2ekii,BecgDIfgFa1baaij2f20hF0102FAE133EH0d31C,iefK1hif3I1ICCJ1b2aGgch0F0FDDFKDeGH01jk1
+Original rows: 3
+Corrupted CSV: fehI23JEE2J0bGe,Gfj0Hjg02c2Ic123I0B1EeG30e3BIK2D,CGF12Jg12jaeKfkI13GDJjf10
+gjJCJ030EJ201K2fCC211kbKb0AH,kBE0ce3233,a0ede3HE3I0J0B3EC0f030I0FA3
+Ki23dDaF3K1CCIFb23eCdbhj2ekii,BecgDIfgFa1baaij2f20hF0102FAE133EH0d31C,iefK1hif3I1ICCJ1b2aGgch0F0FDDFKDeGH01jk1
+Parser extracted:
+  Row 0: [fehI23JEE2J0bGe],[Gfj0Hjg02c2Ic123I0B1EeG30e3BIK2D],[CGF12Jg12jaeKfkI13GDJjf10]
+  Row 1: [gjJCJ030EJ201K2fCC211kbKb0AH],[kBE0ce3233],[a0ede3HE3I0J0B3EC0f030I0FA3]
+  Row 2: [Ki23dDaF3K1CCIFb23eCdbhj2ekii],[BecgDIfgFa1baaij2f20hF0102FAE133EH0d31C],[iefK1hif3I1ICCJ1b2aGgch0F0FDDFKDeGH01jk1]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 42]
+Original CSV (clean): 32I33eJ33GAd1b2k0kA000bjD,ih230eDfdK0bFdCafcd3G113jg0eAJ0Agf,hhChj1HHigDHa
+3H1jeF20dBJd20fc03hF32gDCbG1KaABJ,K2FE1C0HkB3K1D00,jKK2IEDHH1cdhbGfkD2I3K3232bFkC1b
+,e0IBeC1Cd23F3De32Ai00bck0e,3FeI0icAc3IFA3f13Gj2223J22IDJ
+Original rows: 3
+Corrupted CSV: 32I33eJ33GAd1b2k0kA000bjD,ih230eDfdK0bFdCafcd3G113jg0eAJ0Agf,hhChj1HHigDHa
+3H1jeF20dBJd20fc03hF32gDCbG1KaABJ,K2FE1C0HkB3K1D00,jKK2IEDHH1cdhbGfkD2I3K3232bFkC1b
+,e0IBeC1Cd23F3De32Ai00bck0e,3FeI0icAc3IFA3f13Gj2223J22IDJ
+Parser extracted:
+  Row 0: [32I33eJ33GAd1b2k0kA000bjD],[ih230eDfdK0bFdCafcd3G113jg0eAJ0Agf],[hhChj1HHigDHa]
+  Row 1: [3H1jeF20dBJd20fc03hF32gDCbG1KaABJ],[K2FE1C0HkB3K1D00],[jKK2IEDHH1cdhbGfkD2I3K3232bFkC1b]
+  Row 2: [],[e0IBeC1Cd23F3De32Ai00bck0e],[3FeI0icAc3IFA3f13Gj2223J22IDJ]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 43]
+Original CSV (clean): i0,000C2hkjcg1je0fBe02B23cgH3H0FKa3kHIG1A2,G011hCE2C13Fe3jFKb30ge0hC33feF
+1IJ111j
+0k2h1D0HII0d0g01bc0BaE33cIE1Cd,0gGeggIKk10ia031BEkD21K03gGADfGCFb0bkk,2D1Ik
+Original rows: 3
+Corrupted CSV: i0,000C2hkjcg1je0fBe02B23cgH3H0FKa3kHIG1A2,G011hCE2C13Fe3jFKb30ge0hC33feF
+1IJ111j
+0k2h1D0HII0d0g01bc0BaE33cIE1Cd,0gGeggIKk10ia031BEkD21K03gGADfGCFb0bkk,2D1Ik
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 44]
+Original CSV (clean): BH00feGH,fk2cDIhIcd2dFk0kfgJ3,IF0AjDFb3caf2110EfBBI122Ag31c1h1d1
+hhChDHIjH0Fdi12cH0ED1,3d0hA10GG3EhDCF2AJJh3KIbj1Ed,10i1fI13g3E
+11,HH2a30d23A3Ih02IjaiD1j02e2DgCFcgh2D1,1DG3g2ee21hGddFDGae1KcKCF213fcDhG1fiF0B0
+Original rows: 3
+Corrupted CSV: BH00feGH,fk2cDIhIcd2dFk0kfgJ3,IF0AjDFb3caf2110EfBBI122Ag31c1h1d1
+hhChDHIjH0Fdi12cH0ED1,3d0hA10GG3EhDCF2AJJh3KIbj1Ed,10i1f"13g3E
+11,HH2a30d23A3Ih02IjaiD1j02e2DgCFcgh2D1,1DG3g2ee21hGddFDGae1KcKCF213fcDhG1fiF0B0
+Parser extracted:
+  Row 0: [BH00feGH],[fk2cDIhIcd2dFk0kfgJ3],[IF0AjDFb3caf2110EfBBI122Ag31c1h1d1]
+  Row 1: [hhChDHIjH0Fdi12cH0ED1],[3d0hA10GG3EhDCF2AJJh3KIbj1Ed],[10i1f"13g3E]
+  Row 2: [11],[HH2a30d23A3Ih02IjaiD1j02e2DgCFcgh2D1],[1DG3g2ee21hGddFDGae1KcKCF213fcDhG1fiF0B0]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 45]
+Original CSV (clean): 1aBd1Ch1jI4i3Aa24Ghb,4gaKdg1dbALiGHlCd1KflJJkaKhafI323dLGi303Dc,H3IDa03AEkI3LfFJL0diL
+F3Eh4cCif10jFA4aJDhB2,D03GBfjja03j30I0iligDc0jL0a1cDbCG3G21I,1G02
+0Ff21J4aB23Gch2Bj4I3Kcd0hHIbJ4bl1ibg0iGdLl2,a0g11112IllDGkFdI,hdE1HKaK1egfhkJk44GkK4ibJJLb2cL1eG3g3
+Original rows: 3
+Corrupted CSV: 1aBd1Ch1jI4i3Aa24Ghb,4gaKdg1dbALiGHlCd1KflJJkaKhafI323dLGi303Dc,H3IDa03AEkI3LfFJL0diL"F3Eh4cCif10jFA4aJDhB2,D03GBfjja03j30I0iligDc0jL0a1cDbCG3G21I,1G02
+0Ff21J4aB23Gch2Bj4I3Kcd0hHIbJ4bl1ibg0iGdLl2,a0g11112IllDGkFdI,hdE1HKaK1egfhkJk44GkK4ibJJLb2cL1eG3g3
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 46]
+Original CSV (clean): ,Dj4fgDKkbd430eIK30Eg3HhgFD1FAlD00c1f,344aI301G234LdB0C
+3kFE2d0ekJ4l4hddC0,KeFCi,IBe0lGJJ
+2340EBgdbhcFC0aBF41k12jcAJbhf4h2b,1AhdCdkLcc4Ca3dCAJCD4Kjj2jJJ3E,H4EfDEJj1A2DLdaCL42afbCFL4HdaJKa42
+Original rows: 3
+Corrupted CSV: ,Dj4fgDKkbd430eIK30Eg3HhgFD1FAlD00c1f,344aI301G234LdB0C
+3kFE2d0ekJ4l4hddC0,KeFCi,IBe0lGJJ
+2340EBgdbhcFC0aBF41k12jcAJbhf4h2b,1AhdCdkLcc4Ca3dCAJCD4Kjj2jJJ3E,H4EfDEJj1A2DLdaCL42afbCFL4HaJKa42
+Parser extracted:
+  Row 0: [],[Dj4fgDKkbd430eIK30Eg3HhgFD1FAlD00c1f],[344aI301G234LdB0C]
+  Row 1: [3kFE2d0ekJ4l4hddC0],[KeFCi],[IBe0lGJJ]
+  Row 2: [2340EBgdbhcFC0aBF41k12jcAJbhf4h2b],[1AhdCdkLcc4Ca3dCAJCD4Kjj2jJJ3E],[H4EfDEJj1A2DLdaCL42afbCFL4HaJKa42]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 47]
+Original CSV (clean): 
+DB,FC4HCjB2cl1DcD2Bk4K
+3k4i1hi3F1chJJ2B11jbeelhcBiell3234AE,ekiC0e4l1,kIBB4Cdb1KlEgbiLkJ2h4B0Ad31hkDB0k
+Original rows: 3
+Corrupted CSV: )
+DB,FC4HCjB2cl1DcD2Bk4K
+3k4i1hi3F1chJJ2B11jbeelhcBiell3234AE,ekiC0e4l1,kIBB4Cdb1KlEgbiLkJ2h4B0Ad31hkDB0k
+Parser extracted:
+  Row 0: [)]
+  Row 1: [DB]
+  Row 2: [3k4i1hi3F1chJJ2B11jbeelhcBiell3234AE]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 48]
+Original CSV (clean): 02D2E2c2gG,0K0Ed3bL42LIIDacJj0l4bdJhba,h0B3f02jGj2kfjj4J
+h23A03,i20d0k1LEh,fflDfjAcAHJ34D2414aAHD33fAIKe3b4iE
+EB2a13003ac2lL1AGlfCjJgKJjlfA4kcAk,G2AK2J2000l13c4b341elge,F2LBe4H3ALhkE03B0F1k2CL1c11Ehc1DijbE1A
+Original rows: 3
+Corrupted CSV: 02D2E2c2gG,0K0Ed3bL42LIIDacJj0l4bdJhba,h0B3f02jGj2kfjj4J
+h23A03,i20d0k1LEh,fflDfjAcAHJ34D2414aAHD33fAIKe3b4iE
+EB2a13003ac2lL1AGlfCjJgK"jlfA4kcAk,G2AK2J2000l13c4b341elge,F2LBe4H3ALhkE03B0F1k2CL1c11Ehc1DijbE1A
+Parser extracted:
+  Row 0: [02D2E2c2gG],[0K0Ed3bL42LIIDacJj0l4bdJhba],[h0B3f02jGj2kfjj4J]
+  Row 1: [h23A03],[i20d0k1LEh],[fflDfjAcAHJ34D2414aAHD33fAIKe3b4iE]
+  Row 2: [EB2a13003ac2lL1AGlfCjJgK"jlfA4kcAk],[G2AK2J2000l13c4b341elge],[F2LBe4H3ALhkE03B0F1k2CL1c11Ehc1DijbE1A]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 49]
+Original CSV (clean): IfB31mkKBklcF4h0LBIF4M10eL3jh0i03g,CbahgE33004KI2J0E4lA02G13D4g0AmJi,DKAdd3F
+13EHmiI1Ad2BHmll32I4lakGH4iJ0M0iemhd3M,E1214kfhGgcBFmJ3DmI1mB0kL4MDKBajH0a0KBh0d,CLej111eIBj2jk3AbaGAE4fA2233I440Aahee
+lbKH,4Dki32Fl42gk4K,ILGf
+Original rows: 3
+Corrupted CSV: IfB31mkKBkl"F4h0LBIF4M10eL3jh0i03g,CbahgE33004KI2J0E4lA02G13D4g0AmJi,DKAdd3F
+13EHmiI1Ad2BHmll32I4lakGH4iJ0M0iemhd3M,E1214kfhGgcBFmJ3DmI1mB0kL4MDKBajH0a0KBh0d,CLej111eIBj2jk3AbaGAE4fA2233I440Aahee
+lbKH,4Dki32Fl42gk4K,ILGf
+Parser extracted:
+  Row 0: [IfB31mkKBkl"F4h0LBIF4M10eL3jh0i03g],[CbahgE33004KI2J0E4lA02G13D4g0AmJi],[DKAdd3F]
+  Row 1: [13EHmiI1Ad2BHmll32I4lakGH4iJ0M0iemhd3M],[E1214kfhGgcBFmJ3DmI1mB0kL4MDKBajH0a0KBh0d],[CLej111eIBj2jk3AbaGAE4fA2233I440Aahee]
+  Row 2: [lbKH],[4Dki32Fl42gk4K],[ILGf]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 50]
+Original CSV (clean): Eb2dii4lChKCB2LiGgMi4CflBGA4kJMB4a4ha4l43l2l,J2J104GlC,aCJCA04A1MeDje3k44jDC4H2204M1
+CmAlFbAFMEc0AiCC3Dm2d033Mm0lDGb24Em2gdG2,b3A,aeDJM40bF0G32elA200EklEai00LiEM10103bdC40EH4
+aKMkjl3aii,g3b114JJ31G31egM1310Fghg2,Jfbj3HL1IL43bMi2C0
+Original rows: 3
+Corrupted CSV: Eb2dii4lChKCB2LiGgMi4CflBGA4kJMB4a4ha4l43l2l,J2J104GlC,aCJCA04A1MeDje3k44jDC4H2204M1
+CmAlFbAFMEc0AiCC3Dm2d033Mm0lDGb24Em2gdG2,b3A,aeDJM40bF0G32elA200EklEai00LiEM10103bdC40EH4
+aKMkjl3aii,g3b114JJ31G31egM1310Fghg2,Jfbj3HL1IL4bMi2C0
+Parser extracted:
+  Row 0: [Eb2dii4lChKCB2LiGgMi4CflBGA4kJMB4a4ha4l43l2l],[J2J104GlC],[aCJCA04A1MeDje3k44jDC4H2204M1]
+  Row 1: [CmAlFbAFMEc0AiCC3Dm2d033Mm0lDGb24Em2gdG2],[b3A],[aeDJM40bF0G32elA200EklEai00LiEM10103bdC40EH4]
+  Row 2: [aKMkjl3aii],[g3b114JJ31G31egM1310Fghg2],[Jfbj3HL1IL4bMi2C0]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 51]
+Original CSV (clean): 4D,4ccB4M4a21i0LB3Am,4jJCF1
+d2eA22d2jelEd12240KEB2HB4GLa34dbIH13k03l22442j3,H4C1e0eIKgIcmI0K2IMG2D3mgaA,IGbfBlg1231BDM1A3f4e0k0dmKLlakHK2b4FM
+,JAadGcFLdFhM10f4jlJiGfkC,mdM21fgcf00FLcL1IALB4aC3hM1E1i1Gb10bhm21LM444i2IL
+Original rows: 3
+Corrupted CSV: 4D,4ccB4M4a21i0LB3Am',4jJCF1
+d2eA22d2jelEd12240KEB2HB4GLa34dbIH13k03l22442j3,H4C1e0eIKgIcmI0K2IMG2D3mgaA,IGbfBlg1231BDM1A3f4e0k0dmKLlakHK2b4FM
+,JAadGcFLdFhM10f4jlJiGfkC,mdM21fgcf00FLcL1IALB4aC3hM1E1i1Gb10bhm21LM444i2IL
+Parser extracted:
+  Row 0: [4D],[4ccB4M4a21i0LB3Am'],[4jJCF1]
+  Row 1: [d2eA22d2jelEd12240KEB2HB4GLa34dbIH13k03l22442j3],[H4C1e0eIKgIcmI0K2IMG2D3mgaA],[IGbfBlg1231BDM1A3f4e0k0dmKLlakHK2b4FM]
+  Row 2: [],[JAadGcFLdFhM10f4jlJiGfkC],[mdM21fgcf00FLcL1IALB4aC3hM1E1i1Gb10bhm21LM444i2IL]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 52]
+Original CSV (clean): iHHGfgcLdCFAI22m1F1Khj0dj3ldMd1Jc,34ek4lhl2HCj0j3MCA33E41AdKaDDK2,Lk0lB44G3D3dekGJK
+1FiLK31D4EAfMIgKFBfEEmh,3eIH0IILdEfgmh0,eIFH4I0k0G12HgG23gaFDDe
+J32ifIkiijh2BddCEHk0Em13k4J43m1012000lK10fe,0e3aIMCGd4jI4,0DmEME3D0g121MdG211Me
+Original rows: 3
+Corrupted CSV: iHHGfgcLdCFAI22m1F1Khj0dj3ldMd1Jc,34ek4lhl2HCj0j3MCA33E41AdKaDDK2,Lk0lB44G3D3dekGJK
+1FiLK31D4EAfMIgKFBfEEmh,3eIH0IILdEfgmh0,eIFH4I0k0G12HgG23gaFDDe
+J32ifIkiijh2BddCEHk0Em13k4J43m1012000lK10fe,0e3aIMCGd4jI4,0DmEME3D0g121MdG21Me
+Parser extracted:
+  Row 0: [iHHGfgcLdCFAI22m1F1Khj0dj3ldMd1Jc],[34ek4lhl2HCj0j3MCA33E41AdKaDDK2],[Lk0lB44G3D3dekGJK]
+  Row 1: [1FiLK31D4EAfMIgKFBfEEmh],[3eIH0IILdEfgmh0],[eIFH4I0k0G12HgG23gaFDDe]
+  Row 2: [J32ifIkiijh2BddCEHk0Em13k4J43m1012000lK10fe],[0e3aIMCGd4jI4],[0DmEME3D0g121MdG21Me]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 53]
+Original CSV (clean): 3IgiJbM3l0Lml41eAAcJigaiAe11j2DhcjdJ0GbA434F1Ca,F1Bb0MDI,IdEgGcCmH330MagFFmK2J
+M3hlgEBMdHD24dhdBB2Ki2Gjd4gIh024b1lbG31AlmlCFE1b,Gak4jbHEHeJcEhghdG0F03J40110LAB,FEbE3
+23dI30EAd02l2al42A1c211I44341EI102gIHK3CJL3Cm2d1,f30agdm1C42LGmeiI3Fd2LeAkA1E2JDb0Jlg21dKe,b3M0BJ3hILiFfgBHICj33JLhL0cFL42F2b412D4I31GIc3A
+Original rows: 3
+Corrupted CSV: 3IgiJbM3l0Lml41eAAcJigaiAe11j2DhcjdJ0GbA434F1Ca,F1Bb0MDI,IdEgGcCmH330MagFFmK2J
+M3hlgEBMdHD24dhdBB2Ki2Gjd4gIh024b1lbG31AlmlCFE1b,Gak4jbHEHeJcEhghdG0F03J40110LABFEbE3
+23dI30EAd02l2al42A1c211I44341EI102gIHK3CJL3Cm2d1,f30agdm1C42LGmeiI3Fd2LeAkA1E2JDb0Jlg21dKe,b3M0BJ3hILiFfgBHICj33JLhL0cFL42F2b412D4I31GIc3A
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 54]
+Original CSV (clean): Cb3EfKHk2NDHa4MGKh4IEbL3in4H20Daj43FCBF2,ncG0Jj4h021MK13IlJci43ffCab,0GE3L1M0g4MilKLeDE3BelH32
+BEddehDIGkgbleFaDjgbDeM23k4nM3A02,JI02N0kgEJ3b1H42fgG1NE1g4eHJI,0H4G432ND24
+nlfh20hL0i3EE3e1mAkiFN41iFmKEGCiBmD03d2e,G0aGJ2G1Gneej0Hef2NA1b0N2dJ1DG2E2H1eGm30N01n0,342bCbBKB3GKiMLKj3
+Original rows: 3
+Corrupted CSV: Cb3EfKHk2NDHa4MGKh4IEbL3in4H20Daj43FCBF2,ncG0Jj4h021MK13IlJci43ffCab,0GE3L1M0g4MilKLeDE3BelH32
+BEddehDIGkgbleFaDjgbDeM23k4nM3A02,JI02N0kgEJ3b1H42fgG1NE1g4eHJI,0H4G432ND24
+nlfh20hL0i3EE3e1mAkiFN41iFmKEGCiBmD03d2e,G0aGJ2G1Gneej0Hef2NA1b0N2dJ1DG2E2H1eGm30N01n0,342bCbBKB3GKiMLKj3
+Parser extracted:
+  Row 0: [Cb3EfKHk2NDHa4MGKh4IEbL3in4H20Daj43FCBF2],[ncG0Jj4h021MK13IlJci43ffCab],[0GE3L1M0g4MilKLeDE3BelH32]
+  Row 1: [BEddehDIGkgbleFaDjgbDeM23k4nM3A02],[JI02N0kgEJ3b1H42fgG1NE1g4eHJI],[0H4G432ND24]
+  Row 2: [nlfh20hL0i3EE3e1mAkiFN41iFmKEGCiBmD03d2e],[G0aGJ2G1Gneej0Hef2NA1b0N2dJ1DG2E2H1eGm30N01n0],[342bCbBKB3GKiMLKj3]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 55]
+Original CSV (clean): LBi0c4b0i2JF3I33l2Dmc11D1blcn0CkB,323fDmM2IBD001fnMDA3JDiBjn,JAE3KaM3g2GcdFABjiLFC
+
+,AkeMhIfBgaAcF42bFcCMcG403G0,cGdciMcJf114C0ehaihLLl223El03CJbC0FJGHgJL0AG1b4IL
+Original rows: 3
+Corrupted CSV: LBi0c4b0i2JF3I33l2Dmc11D1blcn0CkB,323fDmM2IBD001fnMDA3JDiBjn,JAE3KaM3g2GcdFABjiLFC
+
+,AkeMhIfBgaAcF42bFcCMcG403G0,cGdciMcJf114C0ehaihLLl223El03CJbC0FJGHgJL0AG1b4IL
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 56]
+Original CSV (clean): 01MHD00L1AibMfGF3b2a4G3243e2f441eflj21G2Mm14GeIDa,3N0j2GG120kK2GkK3A1beI21k34hg4L,I0AIgc402LaLBM31memk
+333E2331K,34AlM1,2CD2LIcH0Lm031EmE0bmlMmfna01J3Jb22Gki1A
+EE410K3NjIgAGHH2kgdhe4lc3A0K234HmE14ificCJ3J1AC334,F2E0EE2E434g,0j4k33lb2jBa34Ile144M4K1j4CK34Khf1LfNgm2I1CFaGb
+Original rows: 3
+Corrupted CSV: 01MHD00L1AibMfGF3b2a4G3243e2f441eflj21G2Mm14GeIDa,3N0j2GG120kK2GkK3A1beI21k34hg4L,I0AIgc402LaLBM31memk
+333E2331K,34AlM1,2CD2LIcH0Lm031EmE0bmlMmfna01J3Jb22Gki1A
+EE410K3NjIgAGHH2kgdhe4lc3A0K234HmE14ificCJ3J1AC334,F2E0EE2E434g,0j4k33lb2jBa34Ile144M4K1j4CK34Khf1LfNgm2I1CFaGb
+Parser extracted:
+  Row 0: [01MHD00L1AibMfGF3b2a4G3243e2f441eflj21G2Mm14GeIDa],[3N0j2GG120kK2GkK3A1beI21k34hg4L],[I0AIgc402LaLBM31memk]
+  Row 1: [333E2331K],[34AlM1],[2CD2LIcH0Lm031EmE0bmlMmfna01J3Jb22Gki1A]
+  Row 2: [EE410K3NjIgAGHH2kgdhe4lc3A0K234HmE14ificCJ3J1AC334],[F2E0EE2E434g],[0j4k33lb2jBa34Ile144M4K1j4CK34Khf1LfNgm2I1CFaGb]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 57]
+Original CSV (clean): 03Nbb1iJM020d3jM2cECcI1K0aFMmE4HbDF00NKhDge,da4N0ijGN1he24D0AHM33a303H004F01dklnLe0EbK40l1dh3nAaAJ,G4GheC320a0N3cjdJK2d23F4gM3
+B3djJ20dGIFid3i022ib2JKeH20d3FA10024e4M4mF,3eKMC2FjDNF3ne4FGBhKF0nGDjLGf0l23,lAn2GjE3KCIFJjd2icC4K2bGE4ilnbNCb41
+lM3hb,1k10EAld4CA1HNI01bEIbnA0a4gdjmN3FiC41knbedm04j2,2eK1N2EGLgM344b14fnKCBaenBC1IEh22h411bJEKn2HM3j04GId
+Original rows: 3
+Corrupted CSV: 03Nbb1iJM020d3jM2cECcI1K0aFMmE4HbDF00NKhDge,da4N0ijGN1he24D0AHM33a303H004F01dklnLe0EbK40l1dh3nAaAJ,G4GheC320a0N3cjdJK2d23F4gM3
+B3djJ20dGIFid3i022ib2JKeH20d3FA100244M4mF,3eKMC2FjDNF3ne4FGBhKF0nGDjLGf0l23,lAn2GjE3KCIFJjd2icC4K2bGE4ilnbNCb41
+lM3hb,1k10EAld4CA1HNI01bEIbnA0a4gdjmN3FiC41knbedm04j2,2eK1N2EGLgM344b14fnKCBaenBC1IEh22h411bJEKn2HM3j04GId
+Parser extracted:
+  Row 0: [03Nbb1iJM020d3jM2cECcI1K0aFMmE4HbDF00NKhDge],[da4N0ijGN1he24D0AHM33a303H004F01dklnLe0EbK40l1dh3nAaAJ],[G4GheC320a0N3cjdJK2d23F4gM3]
+  Row 1: [B3djJ20dGIFid3i022ib2JKeH20d3FA100244M4mF],[3eKMC2FjDNF3ne4FGBhKF0nGDjLGf0l23],[lAn2GjE3KCIFJjd2icC4K2bGE4ilnbNCb41]
+  Row 2: [lM3hb],[1k10EAld4CA1HNI01bEIbnA0a4gdjmN3FiC41knbedm04j2],[2eK1N2EGLgM344b14fnKCBaenBC1IEh22h411bJEKn2HM3j04GId]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 58]
+Original CSV (clean): 135,MNbCbCC3MEh3nHAeBl025e02JOOCidbkKnh5
+50a51n32IO0mJ2bjlIE0oEb1jjd,0ag4GCa32a0m2hFg5ic11J0E35KhGEEHn0k2K20L5G,4AKa14Jnbk14FOk3OCmgHe53B4f
+mBf25FDgEOifAI230nmiL2ojIDH2db52lJC3dc0,lEEi55bFiN3l1JkIJhkdiK14d54An4BmE5C1e0n1CBE5OiBOME5jiIme,542ocFBM4oJa522cAA2bK1Hn3A3IC4HcO3NhdlC1e1EHai
+Original rows: 3
+Corrupted CSV: 135,MNbCbCC3MEh3nHAeBl025e02JOOCidbkKnh5
+50a51n32IO0mJ2bjlIE0oEb1jjd,0ag4GCa32a0m2hFg5ic11J0E35KhGEEHn0k2K20L5G,4AKa14Jnbk14FOk3OCmgHe53B4f
+mBf25FDgEOifAI230nmiL2ojIDH2db52lJC3dc0,lEEi55bFiN3l1JkIJhkdiK14d54An4BmE5C1e0n1CBE5OiBOME5jiIme,542ocFBM4oJa522cAA2bK1Hn3A3IC4HcO3NhdlC1e1EHai
+Parser extracted:
+  Row 0: [135],[MNbCbCC3MEh3nHAeBl025e02JOOCidbkKnh5]
+  Row 1: [50a51n32IO0mJ2bjlIE0oEb1jjd],[0ag4GCa32a0m2hFg5ic11J0E35KhGEEHn0k2K20L5G]
+  Row 2: [mBf25FDgEOifAI230nmiL2ojIDH2db52lJC3dc0],[lEEi55bFiN3l1JkIJhkdiK14d54An4BmE5C1e0n1CBE5OiBOME5jiIme]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 59]
+Original CSV (clean): 1JNNoJEDKhAnC1214da5NaMBaKo0dKb1,3Gln00HiAB50h3JJbEc2J53m3oK4,Nh2G4131C0CI0l1CIfjm20
+O103,G3N5n0H3ej0elbOIhgDI42lgBL35AAj2L4cDEFELn230a4,On1FEbaBdJO41cGb5e1M15jBGifhH10eDok0iL4M4JE0gJ
+3cno,b05f21mnIj44bI23oNLB5J12o1nc0HibBdMA0h3jI03A33,1bEjlFD0NJlk0L2ak1N4i404Bgd4Bc5kK4a3A
+Original rows: 3
+Corrupted CSV: 1JNNoJEDKhAnC1214da5NaMBaKo0dKb1,3Gln00HiAB50h3JJbEc2J53m3oK4,Nh2G4131C0CI0l1CIfjm20
+O103,G3N5n0H3ej0elbOIhgDI42lgBL35AAj2L4cDEFELn230a4,On1FEbaBdJO41cGb5e1M15jBGifhH10eDok0iL4M4JE0gJ
+3cno,b05f21mnIj44bI23oNLB5J12o1nc0HibBdMA0h3jI03A33,1bEjlFD0NJlk0L2ak1N4i404Bgd4Bc5kK4a3A
+Parser extracted:
+  Row 0: [1JNNoJEDKhAnC1214da5NaMBaKo0dKb1],[3Gln00HiAB50h3JJbEc2J53m3oK4],[Nh2G4131C0CI0l1CIfjm20]
+  Row 1: [O103],[G3N5n0H3ej0elbOIhgDI42lgBL35AAj2L4cDEFELn230a4],[On1FEbaBdJO41cGb5e1M15jBGifhH10eDok0iL4M4JE0gJ]
+  Row 2: [3cno],[b05f21mnIj44bI23oNLB5J12o1nc0HibBdMA0h3jI03A33],[1bEjlFD0NJlk0L2ak1N4i404Bgd4Bc5kK4a3A]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 60]
+Original CSV (clean): dB0hgcG304LE1OcOi341hF402L4mc1B03DIe,Dj2hl1okI3Bg5e3m0dc5of0eo4I5gNO,334f2l5fa5Nh33aaa0j5040m20
+5Il5452H325m2HO1Ehg2J,H3MAKfgFKIAM0he20jlom53bCN21o13b42k2egf14J4E,Em2O
+Ga2E,OeF3H4BF34O,2G1o43353ffF2GIhkOIge33faD3K3DDLKHj0OB10c5i03
+Original rows: 3
+Corrupted CSV: dB0hgcG304LE1OcOi341hF402L4mc1B03DIe,Dj2hl1okI3Bg5e3m0dc5of0eo4I5gNO,334f2l5fa5Nh33aaa0j5040m20
+5Il5452H325m2H"1Ehg2J,H3MAKfgFKIAM0he20jlom53bCN21o13b42k2egf14J4E,Em2O
+Ga2E,OeF3H4BF34O,2G1o43353ffF2GIhkOIge33faD3K3DDLKHj0OB10c5i03
+Parser extracted:
+  Row 0: [dB0hgcG304LE1OcOi341hF402L4mc1B03DIe],[Dj2hl1okI3Bg5e3m0dc5of0eo4I5gNO],[334f2l5fa5Nh33aaa0j5040m20]
+  Row 1: [5Il5452H325m2H"1Ehg2J],[H3MAKfgFKIAM0he20jlom53bCN21o13b42k2egf14J4E],[Em2O]
+  Row 2: [Ga2E],[OeF3H4BF34O],[2G1o43353ffF2GIhkOIge33faD3K3DDLKHj0OB10c5i03]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 61]
+Original CSV (clean): Jc3Eg4H,,nGK5F3KCm0iaDDeJ3a5FiFddL3hia5ofA1aIMHbGD5IFKa21O013A
+k2m2BloHLAC043okj31aF41hcaGD314Kc11aCA21FHKF3A2003G0kj,lho4D2faD1ghjGj3h12dK3E0IKa0BfOF54g2ED0f1k2kFcM321,l1Bkkoo53dn5o2hh22Lk0Bbk
+e0n0N2oECMD1DcHdD1lBb1d4oGM,GM5115b30l3cOaGAcmOcnja1Bg3HbL03J5G5BC0C22bcML,15eA4iMiM2344j35MCjjFG500KiO1EA1oE0CK04N0KI03JA4kH2
+Original rows: 3
+Corrupted CSV: Jc3Eg4H,,nGK5F3KCm0iaDDeJ3a5FiFddL3hia5ofA1aIMHbGD5IFKa21O013A
+k2m2BloHLAC043okj31aF41hcaGD314Kc11aCA21FHKF3A2003G0kj,lho4D2faD1ghjGj3h12dK3E0IKa0BfOF54g2ED0f1k2kFcM321,l1Bkkoo53dn5o2hh22Lk0Bbk
+e0n0N2oECMD1DcHdD1lBb1d4oGM,GM5115b30l3cOaGAcmOcnja1Bg3HbL03J5G5BC0C22bcML,15eA4iMiM2344j35MCjjFG500KiO1EA1oE0CK04N0KI03JA4kH2
+Parser extracted:
+  Row 0: [Jc3Eg4H],[],[nGK5F3KCm0iaDDeJ3a5FiFddL3hia5ofA1aIMHbGD5IFKa21O013A]
+  Row 1: [k2m2BloHLAC043okj31aF41hcaGD314Kc11aCA21FHKF3A2003G0kj],[lho4D2faD1ghjGj3h12dK3E0IKa0BfOF54g2ED0f1k2kFcM321],[l1Bkkoo53dn5o2hh22Lk0Bbk]
+  Row 2: [e0n0N2oECMD1DcHdD1lBb1d4oGM],[GM5115b30l3cOaGAcmOcnja1Bg3HbL03J5G5BC0C22bcML],[15eA4iMiM2344j35MCjjFG500KiO1EA1oE0CK04N0KI03JA4kH2]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 62]
+Original CSV (clean): jCaeBLe14hcH,dNHmHE2LeC404DA0Md53ge2a3LanDC4ch,LF5jHkOmgE
+EnaHP4204DcB2312pLnKOLL31AoE4NN1pJBOD5eJED0,1pfABiJ3CcI220GBfmdpkiEHI,N25mcl5122j1H1bD4hIoG4LBAoecMJM
+onDaC540M23eaif0kC5H2peGbe311h,Oej1LN2JdjM23lg4nh3ObO41heOAB1GG2nP5Io5110e1K3jGb4M2,4C1420O141ePnk1O1NhD2
+Original rows: 3
+Corrupted CSV: jCaeBLe14hcH,dNHmHE2LeC404DA0Md53ge2a3LanDC4ch,LF5jHkOmgE
+EnaHP4204DcB2312pLnKOLL31AoE4NN1pJBOD5eJED0,1pfABiJ3CcI220GBfmdpkiEHI,N25mcl5122j1H1bD4hIoG4LBAoecMJM
+onDaC540M23eaif0kC5H2peGbe311h,Oej1LN2JdjM23lg4nh3ObO41heOAB1GG2nP5Io5110e1K3jGb4M2,4C1420O141ePnk1O1NhD2
+Parser extracted:
+  Row 0: [jCaeBLe14hcH],[dNHmHE2LeC404DA0Md53ge2a3LanDC4ch],[LF5jHkOmgE]
+  Row 1: [EnaHP4204DcB2312pLnKOLL31AoE4NN1pJBOD5eJED0],[1pfABiJ3CcI220GBfmdpkiEHI],[N25mcl5122j1H1bD4hIoG4LBAoecMJM]
+  Row 2: [onDaC540M23eaif0kC5H2peGbe311h],[Oej1LN2JdjM23lg4nh3ObO41heOAB1GG2nP5Io5110e1K3jGb4M2],[4C1420O141ePnk1O1NhD2]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 63]
+Original CSV (clean): F31BH1i1Jgae5gA5E1F04I352giNJjEmh3Mi43Klp,LaNKI2p54o4L115E1,01GaE05hI0CIn0mj1i1BpcFGNPFnmAp4CH13f5adalK3agnP3Jj1
+G5FeA25bd1FHg113PC54Lo1BGEe,24FpD1dLOinoB44AoEcoaPpklFl1J0eLP1bMi0CO445BAB2Ejh3lJ4jCa,1550bJ3nemH1bAF5DfbG4d3iiib1kFllk434ocg101L24aAoFm4g305eB41kf
+J,35nA5BPIAc1iiI42oA3140dGb5LL1245M4O,gMgD104iHC3154nKfCB1p2ceejbNnIpO5kKdCg32Pe23DPGAdLCcpdP5
+Original rows: 3
+Corrupted CSV: F31BH1i1Jgae5gA5E1F04I352giNJjEmh3Mi43Klp,LaNKI2p54o4L115E1,01GaE05hI0CIn0mj1i1BpcFGNPFnmAp4CH13f5adalK3agnP3Jj1
+G5FeA25bd1FHg113PC54Lo1BGEe,24FpD1dLOinoB44AoEcoaPpklFl1J0eLP1bMi0CO445BAB2Ejh3lJ4jCa,1550bJ3nemH1bAF5DfbG4d3iiib1kFllk434og101L24aAoFm4g305eB41kf
+J,35nA5BPIAc1iiI42oA3140dGb5LL1245M4O,gMgD104iHC3154nKfCB1p2ceejbNnIpO5kKdCg32Pe23DPGAdLCcpdP5
+Parser extracted:
+  Row 0: [F31BH1i1Jgae5gA5E1F04I352giNJjEmh3Mi43Klp],[LaNKI2p54o4L115E1],[01GaE05hI0CIn0mj1i1BpcFGNPFnmAp4CH13f5adalK3agnP3Jj1]
+  Row 1: [G5FeA25bd1FHg113PC54Lo1BGEe],[24FpD1dLOinoB44AoEcoaPpklFl1J0eLP1bMi0CO445BAB2Ejh3lJ4jCa],[1550bJ3nemH1bAF5DfbG4d3iiib1kFllk434og101L24aAoFm4g305eB41kf]
+  Row 2: [J],[35nA5BPIAc1iiI42oA3140dGb5LL1245M4O],[gMgD104iHC3154nKfCB1p2ceejbNnIpO5kKdCg32Pe23DPGAdLCcpdP5]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 64]
+Original CSV (clean): g3A4LA23J4MFlgbgem15Nj33L,eKD4lmKDG5LKcm0j105M0Cig1OihoDH34433303F1ompL,mICLfo4pg25n2CDC4AAe45j22Jdm44H3hD5L15A0
+Je4JOoc1DdMk244m4,noa51FkEmaf1EddpOJ5n4FcHaJ02bChD41Dic5oMc5dm3CmpH2pC023,bPJIl0kjH45ON
+cNJHnEHC3MA35cDp121HJMn2JK0pe04IM0B5aJcfL13l0I4F3i3NbO,oAjHK5PjeFll2LE3hDg2B21M5Da302g2kiNB4,D5g1J02o4535
+Original rows: 3
+Corrupted CSV: g3A4LA23J4MFlgbgem15Nj33L,eKD4lmKDG5LKcm0j105M0Cig1OihoDH34433303F1ompL,mICLfo4pg25n2CDC4AAe45j22Jdm44H3hD5L15A0
+Je4JOoc1DdMk244m4,noa51FkEmaf1EddpOJ5n4FcHaJ02bChD41Dic5oMc5dm3CmpH2pC023,bPJIl0kjH45ON
+cNJHnEHC3MA35cDp121HJMn2JK0pe04IM0B5aJcfL13l0I4F3i3NbO,oAjHK5PjeFll2LE3hDg2B21M5Da302g2kiNB4,D5g1J02o4535
+Parser extracted:
+  Row 0: [g3A4LA23J4MFlgbgem15Nj33L],[eKD4lmKDG5LKcm0j105M0Cig1OihoDH34433303F1ompL],[mICLfo4pg25n2CDC4AAe45j22Jdm44H3hD5L15A0]
+  Row 1: [Je4JOoc1DdMk244m4],[noa51FkEmaf1EddpOJ5n4FcHaJ02bChD41Dic5oMc5dm3CmpH2pC023],[bPJIl0kjH45ON]
+  Row 2: [cNJHnEHC3MA35cDp121HJMn2JK0pe04IM0B5aJcfL13l0I4F3i3NbO],[oAjHK5PjeFll2LE3hDg2B21M5Da302g2kiNB4],[D5g1J02o4535]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 65]
+Original CSV (clean): p,050f5aD0l2PhH21fPnPfEMNiPmL3NBmleIb0n15434jemB3H,LHEo42nlN3Bg553fGaO2hEFlE221D
+32jn0Alem4f5oPHGhLFfJ1opIjkgi3f5BDD30P1E55KDO3mI14OeFhemnKM0A,L35LGOI1pFf5k0miCF4,1n2niiHHh0ji0h0NAMH4gkEoM45
+eCJ04L2pBaOJ,2LHaAK4f35M5aoAJ2ml3Bp5B2bF,b5boGF1nJE4
+Original rows: 3
+Corrupted CSV: p,050f5aD0l2PhH21fPnPfEMNiPmL3NBmleIb0n15434jemB3H,LHEo42nlN3Bg553fGaO2hEFlE221D
+32jn0Alem4f5oPHGhLFfJ1opIjkgi3f5BDD30P1E55KDO3mI14OeFhemnKM0A,L35LGOI1pFf5k0miCF4,1n2niiHHh0ji0h0NAMH4gkEoM45
+eCJ04L2pBaOJ,2LHaAK4f35M5aoAJ2ml3Bp5B2bF,b5boGF1nJE4
+Parser extracted:
+  Row 0: [p],[050f5aD0l2PhH21fPnPfEMNiPmL3NBmleIb0n15434jemB3H],[LHEo42nlN3Bg553fGaO2hEFlE221D]
+  Row 1: [32jn0Alem4f5oPHGhLFfJ1opIjkgi3f5BDD30P1E55KDO3mI14OeFhemnKM0A],[L35LGOI1pFf5k0miCF4],[1n2niiHHh0ji0h0NAMH4gkEoM45]
+  Row 2: [eCJ04L2pBaOJ],[2LHaAK4f35M5aoAJ2ml3Bp5B2bF],[b5boGF1nJE4]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 66]
+Original CSV (clean): 45NJIDHMKk0j1bqQq31pm524I0no15galN3nm,d05eE1G3E1PIakf4LO5cq4IHNiJ,25ajJaL3efkh30334olacLPgoJ32C1bB3ciaJHd1EdeGk41E5E
+A,dk,PqJkPIaeiEpJJE20G2f5E2
+NAI1do11A3O05LfcQqq21BkK300CMbb,G0I5n030C3I4Kp41flF2d2B5Cc0lcB1hpA,aa1J3cEgc0423qpP5o13QoBf4352oO1A203PcP4O0P0d0i1hQMep2
+Original rows: 3
+Corrupted CSV: 45NJIDHMKk0j1bqQq31pm524I0no15galN3nm,d05eE
+1G3E1PIakf4LO5cq4IHNiJ,25ajJaL3efkh30334olacLPgoJ32C1bB3ciaJHd1EdeGk41E5E
+A,dk,PqJkPIaeiEpJJE20G2f5E2
+NAI1do11A3O05LfcQqq21BkK300CMbb,G0I5n030C3I4Kp41flF2d2B5Cc0lcB1hpA,aa1J3cEgc0423qpP5o13QoBf4352oO1A203PcP4O0P0d0i1hQMep2
+Parser extracted:
+  Row 0: [45NJIDHMKk0j1bqQq31pm524I0no15galN3nm],[d05eE]
+  Row 1: [1G3E1PIakf4LO5cq4IHNiJ],[25ajJaL3efkh30334olacLPgoJ32C1bB3ciaJHd1EdeGk41E5E]
+  Row 2: [A],[dk]
+  Row 3: [NAI1do11A3O05LfcQqq21BkK300CMbb],[G0I5n030C3I4Kp41flF2d2B5Cc0lcB1hpA]
+Parsed rows: 4
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 67]
+Original CSV (clean): d5B2dA10BJL4G3Cp5N51cb3NoKJP31K0305lDq2QDCA0Gla45jAgpQ2POm1hJJM,1de41240E3Pq4j0h5nD3OM3423bbObpmcd24EEBjmqNlOa3PKcb5LkIE5E1,dlnCmI24jL2O5n41J45FNpQg54i1IdLkGk5KLaoniM0o3
+,255EMlQkqCLIDjCCo3c5113dJ5E1M0HeOBjp0K05f0030Nb,NFO5I0dcDq15mEmaQbBl4
+dN1e4mL5DCHQo2o3Fh055lKPMCIIf5QD44144NPbo0d21GJQ4A5Ae,cO4,bqOG5Ii23433bdFhFLjh4N0d1CiJnHc54MnDqDpnJ3jD1pIHdOIIN1feEO2G
+Original rows: 3
+Corrupted CSV: d5B2dA10BJL4G3Cp5N51cb3NoKJP31K0305lDq2QDCA0Gla45jAgpQ2POm1hJJM,1de41240E3Pq4j0h5nD3OM3423bbObpmcd24EEBjmqNlOa3PKcb5LkIE5E1,dlnCmI24jL2O5n41J45FNpQg54i1IdLkGk5KLaoniM0o3
+,255EMlQkqCLIDjCCo3c5113dJ5E1M0HeOBjp0K05f0030Nb,NFO5I0dcDq15mEmaQbBl4
+dN1e4mL5DCHQo2o3Fh055lKPMCIIf5QD44144NPbo0d21GJQ4A5Ae,cO4,bqOG5Ii23433bdFhFLjh4N0d1CiJnHc54MnDqDpnJ3jD1pIHdOIIN1feEO2G
+Parser extracted:
+  Row 0: [d5B2dA10BJL4G3Cp5N51cb3NoKJP31K0305lDq2QDCA0Gla45jAgpQ2POm1hJJM],[1de41240E3Pq4j0h5nD3OM3423bbObpmcd24EEBjmqNlOa3PKcb5LkIE5E1],[dlnCmI24jL2O5n41J45FNpQg54i1IdLkGk5KLaoniM0o3]
+  Row 1: [],[255EMlQkqCLIDjCCo3c5113dJ5E1M0HeOBjp0K05f0030Nb],[NFO5I0dcDq15mEmaQbBl4]
+  Row 2: [dN1e4mL5DCHQo2o3Fh055lKPMCIIf5QD44144NPbo0d21GJQ4A5Ae],[cO4],[bqOG5Ii23433bdFhFLjh4N0d1CiJnHc54MnDqDpnJ3jD1pIHdOIIN1feEO2G]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 68]
+Original CSV (clean): 3GG0j1n3N3pjcB20KibEhg1ocf2A02G00ib4ihD,5PDbc4Lm2AqQqa3E4GdcQJQ02fqGJGb5O50pN0NCI3fed1NhbMJo13J5NmN5m44M4h,olAf1Kk2kEDhI5ncFb4g3FhIF
+hf0h2i2L3N51hEh3gQ5b2bhIk0L225kloCC1I1PoKL4imlaK02abeM2HKloAgGf03b,OKgc1fpqo5H23cCm4bO5o44HfKIAFAKbLkJCb35K04,0FH2l4b5G23dO4JEkG5IgkmmM41cq1I5k42C
+2dFJN3A14102LKMi,pg20C331f4L52qCA5pOMoGMKP14MK0h,2QhNHJ4PP13NMbi5
+Original rows: 3
+Corrupted CSV: 3GG0j1n3N3pjcB20KibEhg1ocf2A02G00ib4ihD,5PDbc4Lm2AqQqa3E4GdcQJQ02fqGJGb5O50pN0NCI3fed1NhbMJo13J5NmN5m44M4h,olAf1Kk2kEDhI5ncFb4g3FhIF
+hf0h2i2L3N51hEh3gQ5b2bhIk0L225klCC1I1PoKL4imlaK02abeM2HKloAgGf03b,OKgc1fpqo5H23cCm4bO5o44HfKIAFAKbLkJCb35K04,0FH2l4b5G23dO4JEkG5IgkmmM41cq1I5k42C
+2dFJN3A14102LKMi,pg20C331f4L52qCA5pOMoGMKP14MK0h,2QhNHJ4PP13NMbi5
+Parser extracted:
+  Row 0: [3GG0j1n3N3pjcB20KibEhg1ocf2A02G00ib4ihD],[5PDbc4Lm2AqQqa3E4GdcQJQ02fqGJGb5O50pN0NCI3fed1NhbMJo13J5NmN5m44M4h],[olAf1Kk2kEDhI5ncFb4g3FhIF]
+  Row 1: [hf0h2i2L3N51hEh3gQ5b2bhIk0L225klCC1I1PoKL4imlaK02abeM2HKloAgGf03b],[OKgc1fpqo5H23cCm4bO5o44HfKIAFAKbLkJCb35K04],[0FH2l4b5G23dO4JEkG5IgkmmM41cq1I5k42C]
+  Row 2: [2dFJN3A14102LKMi],[pg20C331f4L52qCA5pOMoGMKP14MK0h],[2QhNHJ4PP13NMbi5]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 69]
+Original CSV (clean): 51lFp4bdOo2L2gA5Qi1L2KKe2PE5dB4GccIadcPD5Q3IJ1h4343nm0jD3,1pd12Oa2Mp5nIMpl,14E2g
+34gfMc05Blb520efoBnj3Nge3I0jJJDpdLeB0eF,1p0,13d12mKl11a4OM4lK4NlmkH145Dcp25pI2clm22bdj
+bg411L2H413nKqfn14GBo05egjL52g3fcf50lk21H,1nd0C4DGAj522Pme155q20iAekQ2JII3qK3jBM5cnGha,1jfgE0NHK3NNd3DILnAQd5JgQFkm1f5FcI321bfjg1QAL400km
+Original rows: 3
+Corrupted CSV: 51lFp4bdOo2L2gA5Qi1L2KKe2PE5dB4GccIadcPD5Q3IJ1h4343nm0jD,1pd12Oa2Mp5nIMpl,14E2g
+34gfMc05Blb520efoBnj3Nge3I0jJJDpdLeB0eF,1p0,13d12mKl11a4OM4lK4NlmkH145Dcp25pI2clm22bdj
+bg411L2H413nKqfn14GBo05egjL52g3fcf50lk21H,1nd0C4DGAj522Pme155q20iAekQ2JII3qK3jBM5cnGha,1jfgE0NHK3NNd3DILnAQd5JgQFkm1f5FcI321bfjg1QAL400km
+Parser extracted:
+  Row 0: [51lFp4bdOo2L2gA5Qi1L2KKe2PE5dB4GccIadcPD5Q3IJ1h4343nm0jD],[1pd12Oa2Mp5nIMpl],[14E2g]
+  Row 1: [34gfMc05Blb520efoBnj3Nge3I0jJJDpdLeB0eF],[1p0],[13d12mKl11a4OM4lK4NlmkH145Dcp25pI2clm22bdj]
+  Row 2: [bg411L2H413nKqfn14GBo05egjL52g3fcf50lk21H],[1nd0C4DGAj522Pme155q20iAekQ2JII3qK3jBM5cnGha],[1jfgE0NHK3NNd3DILnAQd5JgQFkm1f5FcI321bfjg1QAL400km]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 70]
+Original CSV (clean): 
+GPPhm5dhjm005cEDhJ4AiNF1HpcjACAQ2ccE5Hnj3a3c42qjD,lEI6kcMnaQfMPlf145l01I03L041n1iFL5m1oD26A,5Gj0223oPGHpK5EC4k5Pm5KjHq2RfF6oDINGKP4IJEHABJlL0aNeqJCbe3
+OF2KOr56E06oGnJJPhq1phO5KlBc6P,5J6F1nEli0m11LlJOe53Jo4rbdEF1k4aj615herhK02M40r04CG464n05bRHfD4,FFc6PLLBr6aME4hIP0DcR0Pn6I64031g
+Original rows: 3
+Corrupted CSV: 
+GPPhm5dhjm005cEDhJ4AiNF1HpcjACAQ2ccE5Hnj3a3c42qjD,lEI6kcMnaQfMPlf145l01I03L041n1iFL5m1oD26A,5Gj0223oPGHpK5EC4k5Pm5KjHq2RfF6oDINGKP4IJEHABJlL0aNeqJCbe3
+OF2KOr56E06oGnJJPhq1phO5KlBc6P,5J6F1nEli0m11LlJOe53Jo4rbdEF1k4aj615herhK02M40r04CG464n05bRfD4,FFc6PLLBr6aME4hIP0DcR0Pn6I64031g
+Parser extracted:
+  Row 0: []
+  Row 1: [GPPhm5dhjm005cEDhJ4AiNF1HpcjACAQ2ccE5Hnj3a3c42qjD]
+  Row 2: [OF2KOr56E06oGnJJPhq1phO5KlBc6P]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 71]
+Original CSV (clean): Jok4r62IHqGe0mkkHi3nr3Kh0II0M1c30nOE,25Om0Br,JN00q4Dlp10560fMqpi1i1k2o50Ggji43P0cAqIRI2rIRFa5i
+E3BI6l1n0PF2MCF5mnRCIOCc61d2IhI21LO0eCRR4NaE0aqlNQ12lqAG33EBMh,q0KLDK46OG,pMmdNHelaH44NqIlOlBJ21n50lGgCL5io1e01FMApr3lfJARmc6rD5h5
+0rA0LfOQd0iQh2H01K0G1R12H2cm0NO1A5L3aq6cj22I5e,EMam0bp5131J,glHHEaAL4Bjl5n5Jj66rlqE2CmEJdqAD
+Original rows: 3
+Corrupted CSV: Jok4r62IHqGe0mkkHi3nr3Kh0II0M1c30nOE,25Om0Br,JN00q4Dlp10560fMqpi1i1k2o50Ggji43P0cAqIRI2rIRFa5i
+E3BI6l1n0PF2MCF5mnRCIOCc61d2IhI21LO0eCRR4NaE0aqlNQ12lqAG33EBMh,q0KLDK46OG,pMmdNHelaH44NqIlOlBJ21n50lGgCL5io1e01FMApr3lfJARmc6rD5h5
+0rA0LfOQd0iQh2H01K0G1R12H2cm0NO1A5L3aq6cj22I5e,EMam0bp5131J,glHHEaAL4Bjl5n5Jj66rlqE2CmEJdqAD
+Parser extracted:
+  Row 0: [Jok4r62IHqGe0mkkHi3nr3Kh0II0M1c30nOE],[25Om0Br],[JN00q4Dlp10560fMqpi1i1k2o50Ggji43P0cAqIRI2rIRFa5i]
+  Row 1: [E3BI6l1n0PF2MCF5mnRCIOCc61d2IhI21LO0eCRR4NaE0aqlNQ12lqAG33EBMh],[q0KLDK46OG],[pMmdNHelaH44NqIlOlBJ21n50lGgCL5io1e01FMApr3lfJARmc6rD5h5]
+  Row 2: [0rA0LfOQd0iQh2H01K0G1R12H2cm0NO1A5L3aq6cj22I5e],[EMam0bp5131J],[glHHEaAL4Bjl5n5Jj66rlqE2CmEJdqAD]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 72]
+Original CSV (clean): 
+afaKm6,fEDF1KhJbhJq33fjO1gO04C2HBBPlG304144de1A4g2M,L0M1203b51Cb263af1gk0gCCf5L061m6354Cq45H56
+Qm,aqOBFQ4rE6Q40hhM31K3D2RdeePH3Ij3kmao02P4D0301HJpEan25iJJG3KFi1I3m4,l163j5b0L
+Original rows: 3
+Corrupted CSV: 
+afaKm6,fEDF1KhJbhJq33fjO1gO04C2HBBPlG304144de1A4g2M,L0M1203b51Cb263af1gk0gCCf5L061m6354Cq45H56
+Qm,aqOBFQ4rE6Q40hhM31K3D2RdeePH3Ij3kmao02P4D0301HJpEan25iJJG3KFi1I3m4,l163j5b0L
+Parser extracted:
+  Row 0: []
+  Row 1: [afaKm6]
+  Row 2: [Qm]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 73]
+Original CSV (clean): P1BMkg2JqepJRPjAl42gM4B21JC3l1GCb0,cD4LHjnHr4do4,gGL42ek2pchB03N26hI4He6HBP6N2cg6mDaC4oB4GaMQE
+Bk1KcidAKB1O2G1LilM0D3pcq3J5CpKLr4Lgn53L0dgqO3E01p03KE415cQ1Hkmode,Qp3gbeA0cAdJ5HoGi42A0K2FqkH5PLdl65lbNC4KObKmM42Eb4DhOEpHFPAfq4,
+HaO36l0p20JJceHaJjkcJ4GAKk00EPiMKMg1iqC245D3lAO,NaMmfh6gH5Pql46efQ,42qcKlFOo5iO0AAEEDd0c5e52r5fpHBik6nDCn2H6GfniFEChpQIH2IpL60H
+Original rows: 3
+Corrupted CSV: P1BMkg2JqepJRPjAl42gM4B21JC3l1GCb0,cD4LHjnHr4do4,gGL42ek2pchB03N26hI4He6HBP6N2cg6mDaC4oB4GaMQE
+Bk1KcidAKB1O2G1LilM0D3pcq3J5CpKLr4Lgn53L0dgqO3E01p03KE415cQ1Hkmode,Qp3gbeA0cAdJ5HoGi42A0K2FqkH5PLdl65lbNC4KObKmM42Eb4DhOEpHFPAfq4,
+HaO36l0p20JJceHaJjkcJ4GAKk00EPiMK
+Mg1iqC245D3lAO,NaMmfh6gH5Pql46efQ,42qcKlFOo5iO0AAEEDd0c5e52r5fpHBik6nDCn2H6GfniFEChpQIH2IpL60H
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 74]
+Original CSV (clean): 4ro1gQojsN5gg0cSCGeScmN4NdJmh1542AJ1nHIdCoJgI66nl3Rr1,KcOiqA0JQ6E5F0pFJr5liLBS6EJsjfe3Hg43AlanCHd3J6O5Ble2JE62kCCB,0q15p332rE53f2GPf54AQPa4AGO
+ILIlObDc0qBqeDK6,S5SH2qLsEM32rMO262PM32HEjFORbJOJ34rAl,arED10CclF1l36b5jHGrlOBbBM12ID2c31i0raNnLd16g00jdmOA021Sd6KeS6SP
+43sOIHSqOGK,QmD1gRB5acc1q5s00PNf65Ir1,52cn31b150IBAHp5CIF02Jo1o2mn
+Original rows: 3
+Corrupted CSV: 4ro1gQojsN5gg0cSCGeScmN4NdJmh1542AJ1nHIdCoJgI66nl3Rr1,KcOiqA0JQ6E5F0pFJr5liLBS6EJsjfe3Hg43AlanCHd3J6O5Ble2JE62kCCB,0q15p332rE53f2GPf54AQPa4AGO
+ILIlObDc0qBqeDK6,S5SH2qLsEM32rMO262PM32HEjFORbJOJ34rAl,arED10CclF1l36b5jHGrlOBbBM12ID2c3"i0raNnLd16g00jdmOA021Sd6KeS6SP
+43sOIHSqOGK,QmD1gRB5acc1q5s00PNf65Ir1,52cn31b150IBAHp5CIF02Jo1o2mn
+Parser extracted:
+  Row 0: [4ro1gQojsN5gg0cSCGeScmN4NdJmh1542AJ1nHIdCoJgI66nl3Rr1],[KcOiqA0JQ6E5F0pFJr5liLBS6EJsjfe3Hg43AlanCHd3J6O5Ble2JE62kCCB],[0q15p332rE53f2GPf54AQPa4AGO]
+  Row 1: [ILIlObDc0qBqeDK6],[S5SH2qLsEM32rMO262PM32HEjFORbJOJ34rAl],[arED10CclF1l36b5jHGrlOBbBM12ID2c3"i0raNnLd16g00jdmOA021Sd6KeS6SP]
+  Row 2: [43sOIHSqOGK],[QmD1gRB5acc1q5s00PNf65Ir1],[52cn31b150IBAHp5CIF02Jo1o2mn]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 75]
+Original CSV (clean): 
+Original rows: 0
+Corrupted CSV: 
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 76]
+Original CSV (clean): 6g34h56j1pFOaGB5SlmnBPnpFK0eoo,,HCKd1CC4RP22lG2e51NkjqbKmp1J2DOAjCQ6Hjm53I6JH1SNalcAhE1jn
+c4c5C53IdfBK163fNSFi2g1a6J4L4FF2FihObS2GQ30f4JR2GofeoiG,6omGcr0q3ffIDA6dC6gN01p5jAG4532KC4h500jN64FkL5136p0jaqME1j5H2PGd2sSBhb2Ao,210f531LnE54Aah5fphPDPsgn6D
+m6if4Lc2Pg63H,Qb1K0QI6Hq3250dLBlA,JrL1Nnf1Rmhs2fdjFnmO3
+Original rows: 3
+Corrupted CSV: 6g34h56j1pFOaGB5SlmnBPnpFK0eoo,,HCKd1CC4RP22lG2e51NkjqbKmp1J2DOAjCQ6Hjm53I6JH1SNalcAhE1jn
+c4c5C53IdfBK163fNSFi2g1a6J4L4FF2FihObS2GQ30f4JR2GofeoiG,6omGcr0q3ffIDA6dC6gN01p5jAG4532KC4h500jN64FkL5136p0jaqME1j5H2PGd2sSBhb2Ao,210f531LnE54AFah5fphPDPsgn6D
+m6if4Lc2Pg63H,Qb1K0QI6Hq3250dLBlA,JrL1Nnf1Rmhs2fdjFnmO3
+Parser extracted:
+  Row 0: [6g34h56j1pFOaGB5SlmnBPnpFK0eoo],[],[HCKd1CC4RP22lG2e51NkjqbKmp1J2DOAjCQ6Hjm53I6JH1SNalcAhE1jn]
+  Row 1: [c4c5C53IdfBK163fNSFi2g1a6J4L4FF2FihObS2GQ30f4JR2GofeoiG],[6omGcr0q3ffIDA6dC6gN01p5jAG4532KC4h500jN64FkL5136p0jaqME1j5H2PGd2sSBhb2Ao],[210f531LnE54AFah5fphPDPsgn6D]
+  Row 2: [m6if4Lc2Pg63H],[Qb1K0QI6Hq3250dLBlA],[JrL1Nnf1Rmhs2fdjFnmO3]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 77]
+Original CSV (clean): 
+GAo1EeNrBSH4Snbh5FQ1o4iPb3c4M3qaNB6jh111lM0p6JFLmEc0SQR00E0f,ma26m0bI6ObqIEgf4dL2Rf510I2o3oqe32hm1jiRI5g3d133kQo4,6eEI
+K3dDi3q2LkBgH4n0Ks,BSGoLn3KCFo2gNoP5bc55DPC6Q2JNI,K4mls2e21g4J2PJA6HGmnof21ipA1rRo0P6mJ
+Original rows: 3
+Corrupted CSV: 
+GAo1EeNrBSH4Snbh5FQ1o4iPb3c4M3qaNB6jh111lM0p6JFLmEc0SQR00E0f,ma26m0bI6ObqIEgf4dL2Rf510I2o3oqe32hm1jiRI5g3d133kQo4,6eEI
+K3dDi3q2LkBgH4n0Ks,BSGoLn3KCFo2gNoP5bc55DPC6Q2JNI,K4mls2e21g4J2PJA6HGmnof21ipA1rRo0P6mJ
+Parser extracted:
+  Row 0: []
+  Row 1: [GAo1EeNrBSH4Snbh5FQ1o4iPb3c4M3qaNB6jh111lM0p6JFLmEc0SQR00E0f]
+  Row 2: [K3dDi3q2LkBgH4n0Ks]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 78]
+Original CSV (clean): 
+Original rows: 0
+Corrupted CSV: 
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 79]
+Original CSV (clean): P5PA5Oe,ep5QgHcSGjCPaaK6sn65ACs43EaCJbB6636NDoqM3oC2eqp1I51SQii60OdN46piqE,eR4L6iL
+6hrbo3C01544NO3F302mP,bNf2N36MR,R16fT1Ipp6505rNPqm5O6tTMkK453eI2pBJM2Fdsh2E
+GTopgD5i1l5jAC24GdRsdI1550iBjn2oLPA3bbKr6SFcj453aBHFdILc0r,5AMAECA4dp530K0H6oBG3ah1,03AdKmL4I4t04
+Original rows: 3
+Corrupted CSV: P5PA5Oe,p5QgHcSGjCPaaK6sn65ACs43EaCJbB6636NDoqM3oC2eqp1I51SQii60OdN46piqE,eR4L6iL
+6hrbo3C01544NO3F302mP,bNf2N36MR,R16fT1Ipp6505rNPqm5O6tTMkK453eI2pBJM2Fdsh2E
+GTopgD5i1l5jAC24GdRsdI1550iBjn2oLPA3bbKr6SFcj453aBHFdILc0r,5AMAECA4dp530K0H6oBG3ah1,03AdKmL4I4t04
+Parser extracted:
+  Row 0: [P5PA5Oe],[p5QgHcSGjCPaaK6sn65ACs43EaCJbB6636NDoqM3oC2eqp1I51SQii60OdN46piqE],[eR4L6iL]
+  Row 1: [6hrbo3C01544NO3F302mP],[bNf2N36MR],[R16fT1Ipp6505rNPqm5O6tTMkK453eI2pBJM2Fdsh2E]
+  Row 2: [GTopgD5i1l5jAC24GdRsdI1550iBjn2oLPA3bbKr6SFcj453aBHFdILc0r],[5AMAECA4dp530K0H6oBG3ah1],[03AdKmL4I4t04]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 80]
+Original CSV (clean): Kh1fH5A1QNhC165qpq4k410102sbkfPog2hrpG5tnJ3M4qeCGO1R5mska4M2jd366TE464c66lh,kQ6rIkGJOb3Krea6gb5NgQ1GfB10R24PjjQjl0JL053G32J11eOh262B6SI336r,6pnS6g5q3tORK3KIBdKk4r3ELqJCHDkbTs5kG1TqN1A11p0ET1fbF0350JnLJmKF
+N6A2cD,dPg53,oORDerjH2JkOtP20eheQOc5F6lR1SAAl3140rtRP31f5k2S6oOkJq5425qB4t4f4o11F6tR4
+3lEone103KpLrLmJFedSgCSlLR4mg1lsdjbDNnRSe,ceM2S00,OP00cQE122rgoTEFatFA21DR1k41POfA4
+Original rows: 3
+Corrupted CSV: Kh1fH5A1QNhC165qpq4k410102sbkfPog2hrpG5tnJ3M4qeCGO1R5mska4M2jd366TE464c66lh,kQ6rIkGJOb3Krea6gb5NgQ1GfB10R24PjjQjl0JL053G32J11eOh262B6SI336r,6pnS6g5q3tORK3KIBdKk4r3ELqJCHDkbTs5kG1TqN1A11p0ET1fbF0350JnLJmKF
+N6A2cD,dPg53,oORDerjH2JkOtP20eheQOc5F6l"1SAAl3140rtRP31f5k2S6oOkJq5425qB4t4f4o11F6tR4
+3lEone103KpLrLmJFedSgCSlLR4mg1lsdjbDNnRSe,ceM2S00,OP00cQE122rgoTEFatFA21DR1k41POfA4
+Parser extracted:
+  Row 0: [Kh1fH5A1QNhC165qpq4k410102sbkfPog2hrpG5tnJ3M4qeCGO1R5mska4M2jd366TE464c66lh],[kQ6rIkGJOb3Krea6gb5NgQ1GfB10R24PjjQjl0JL053G32J11eOh262B6SI336r],[6pnS6g5q3tORK3KIBdKk4r3ELqJCHDkbTs5kG1TqN1A11p0ET1fbF0350JnLJmKF]
+  Row 1: [N6A2cD],[dPg53],[oORDerjH2JkOtP20eheQOc5F6l"1SAAl3140rtRP31f5k2S6oOkJq5425qB4t4f4o11F6tR4]
+  Row 2: [3lEone103KpLrLmJFedSgCSlLR4mg1lsdjbDNnRSe],[ceM2S00],[OP00cQE122rgoTEFatFA21DR1k41POfA4]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 81]
+Original CSV (clean): 10Degeoi2M3rmHR2BO6p0B4rICGab3ienL5rNrRoIdt0kf6DHEp4ADoAmRdaGPj56mb,3Jn1jpOM3oKS15a1gC2bc2EktRCNgTsisT6432iHES421SEgE0DpD3SAops353PpArnJ3I1g3445o331,BnHcb1CaSOKA16jG50ET26DJaT13cE1OGTe42OO11QQn0l
+6hJF60pgo66pi35nbm2nLJok5iI,aFObFQk3paogsP45RmB11S6Bn344S,601pt02qMBNIOMmhD2pRO4a2dQ63aNLD6At0L0Jj6s
+QMm6IgI106PHe6Lr52rse150NLo1G6rMiQ004C4CnaOn1HfgIlDGS1D,sRBeQDm14fNt5R2J116DCM,GNTd4
+Original rows: 3
+Corrupted CSV: 10Degeoi2M3rmHR2BO6p0B4rICGab3ienL5rNrRoIdt0kf6DHEp4ADoAmRdaGPj56mb,3Jn1jpOM3oKS15a1gC2bc2EktRCNgTsisT6432iHES421SEgE0DpD3SAops353PpArnJ3I1g3445o331,BnHcb1CaSOKA16jG50ET26DJaT13cE1OGTe42OO11QQn0l
+6hJF60pgo66pi35nbm2nLJok5iI,aFObFQk3paogsP45RmB11S6Bn344S,601pt02qMBNIOMmhD2pRO4a2dQ63aNLD6At0L0Jj6s
+QMm6IgI106PHe6Lr52rse150NLo1G6rMiQ004C4CnaOn1HfgIlDGS1D,sRBeQDm14fNt5R2J116DCM,GNTd4
+Parser extracted:
+  Row 0: [10Degeoi2M3rmHR2BO6p0B4rICGab3ienL5rNrRoIdt0kf6DHEp4ADoAmRdaGPj56mb],[3Jn1jpOM3oKS15a1gC2bc2EktRCNgTsisT6432iHES421SEgE0DpD3SAops353PpArnJ3I1g3445o331],[BnHcb1CaSOKA16jG50ET26DJaT13cE1OGTe42OO11QQn0l]
+  Row 1: [6hJF60pgo66pi35nbm2nLJok5iI],[aFObFQk3paogsP45RmB11S6Bn344S],[601pt02qMBNIOMmhD2pRO4a2dQ63aNLD6At0L0Jj6s]
+  Row 2: [QMm6IgI106PHe6Lr52rse150NLo1G6rMiQ004C4CnaOn1HfgIlDGS1D],[sRBeQDm14fNt5R2J116DCM],[GNTd4]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 82]
+Original CSV (clean): 20JRb4m6cTIBtTF4c42Ed023do5arPPOcR3H2qbNoOrsT4cTIilOLgTGPS2,2tN40MGiL12d54C02KM002lpI1iMhEdg5,bkecNNJigQNHI2iRQALkdhd3Io4GEj41okeCf1ILKmPT5
+d4qod,DjoP2D1Lo25k4AT3plM6PNJS23Gs42k,S5kikr1B4FOeJ4jh36e5ldi3S3SGAS5ETiCF522S0cmKAhQHfIt2O5cFPFAj152Oior
+Lo2ePPsgk1Oc0,5c65mqfG6Sh2oi430J0fs0FmE55HeA0cQeOMhkJo31fSip5541MEpoM65ho6g4FgtEsNO4M5KRTBbjQc0,3cjDP2K2N50r04QhnE53Q3C1ePNl2n13Qf1QMlili
+Original rows: 3
+Corrupted CSV: 20JRb4m6cTIBtTF4c42Ed023do5arPPOcR3H2qbNoOrsT4cTIilOLgTGPS2,2tN40MGiL12d54C02KM002lpI1iMhEdg5,bkecNNJigQNHI2iRQALkdhd3Io4GEj41okeCf1ILKmPT5
+d4qod,DjoP2D1Lo25k4AT3plM6PNJS23Gs42k,S5kikr1B4FOeJ4jh36e5ldi3S3SGAS5ETiCF522S0cmKAhQHfIt2O5cFPFAj152Oior
+Lo2ePPsgk1Oc0,5c65mqfG6Sh2oi430J0fs0FmE55HeA0cQeOMhkJo31fSip5541MEpoM65ho6g4FgtEsNO4M5KRTBbjQc0,3cjDP2K2N50r04QhnE53Q3C1ePNl2n13Qf1QMlili
+Parser extracted:
+  Row 0: [20JRb4m6cTIBtTF4c42Ed023do5arPPOcR3H2qbNoOrsT4cTIilOLgTGPS2],[2tN40MGiL12d54C02KM002lpI1iMhEdg5],[bkecNNJigQNHI2iRQALkdhd3Io4GEj41okeCf1ILKmPT5]
+  Row 1: [d4qod],[DjoP2D1Lo25k4AT3plM6PNJS23Gs42k],[S5kikr1B4FOeJ4jh36e5ldi3S3SGAS5ETiCF522S0cmKAhQHfIt2O5cFPFAj152Oior]
+  Row 2: [Lo2ePPsgk1Oc0],[5c65mqfG6Sh2oi430J0fs0FmE55HeA0cQeOMhkJo31fSip5541MEpoM65ho6g4FgtEsNO4M5KRTBbjQc0],[3cjDP2K2N50r04QhnE53Q3C1ePNl2n13Qf1QMlili]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 83]
+Original CSV (clean): 5a3E56p6riA5DDmKesLAfU25hET0,FK7KuaseR3k11erPbjB3s26gffh1KObK6jsL4oJ6hOefdkfR1d,34c70J1Ks4E6Ro6i0N20Q7B7Aqi67113Hhu7qs4lP13sE1Bg2a321EU3ak5l20BM2G7F
+QaMoh0atbc6t2O261N47L5Q7EGb2Nb5NKJIco547ka1n032CUA3D6LJuc00n03GMlOK5JU00tepLAadC4,e55o5nlgE2bBNKS,qIgo52BD1Crf2f
+gH012QIF3,S0k4H7l4s4630f5,130I2l1Qq54LRU2Ggf0uFCO6ce6L2G3mJut1D5N30LSh61RIdit6i
+Original rows: 3
+Corrupted CSV: 5a3E56p6riA5DDmKesLAfU25hET0,FK7KuaseR3k11erPbjB3s26gffh1KObK6jsL4oJ6hOefdkfR1d,34c70J1Ks4E6Ro6i0N20Q7B7Aqi67113Hhu7qs4lP13sE1Bg2a321EU3ak5l20BM2G7F
+QaMoh0atbc6t2O261N47L5Q7EGb2Nb5NKJIco547ka1n032CUA3D6LJuc00n03GMlOK5JU00tepLAadC4,e55o5nlgE2bBNKS,qIgo52BD1Crf2f
+gH012QIF3,S0k4H7l4s4630f5,130I2l1Qq54LRU2Ggf0uFCO6ce6L2G3mJut1D5N30LSh61RIdit6i
+Parser extracted:
+  Row 0: [5a3E56p6riA5DDmKesLAfU25hET0],[FK7KuaseR3k11erPbjB3s26gffh1KObK6jsL4oJ6hOefdkfR1d],[34c70J1Ks4E6Ro6i0N20Q7B7Aqi67113Hhu7qs4lP13sE1Bg2a321EU3ak5l20BM2G7F]
+  Row 1: [QaMoh0atbc6t2O261N47L5Q7EGb2Nb5NKJIco547ka1n032CUA3D6LJuc00n03GMlOK5JU00tepLAadC4],[e55o5nlgE2bBNKS],[qIgo52BD1Crf2f]
+  Row 2: [gH012QIF3],[S0k4H7l4s4630f5],[130I2l1Qq54LRU2Ggf0uFCO6ce6L2G3mJut1D5N30LSh61RIdit6i]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 84]
+Original CSV (clean): C0t52d0NcogPKMcQ45,MJdoSU3FPmPQ0lO7kfD,ddsd0UUGg1NjtbrLk4OHEMG5J1dHC0SE360s2SHtNk
+TN3nJP,1OTApS6aUC0p2MGNQ5hN,3cKtrfQ1lbI1frTKj3535MJNM6BINs20ceB66G3p056Q1d5DOA563D767R
+qa6h12R32im3JRoakKR1fe1mMrd55oOu6aIn1QJ7MQQF22pBd6c734JQUAq2Sim4,7utg31675EK2n6keITp0Q27DDgQ27q41pct466B167KSK06tQbqCp32,2l377N6h3bBQs62s6GufJJaJP4Mo3Fa3j1u25Q74pu637D5N3HKq1N6NH2qQ1U3j0hG
+Original rows: 3
+Corrupted CSV: C0t52d0NcogPKMcQ45,MJdoSU3FPmPQ0lO7kfD,ddsd0UUGg1NjtbrLk4OHEMG5J1dHC0SE360s2SHtNk
+TN3nJP,1OTApS6aUC0p2MGNQ5hN,3cKtrfQ1lbI1frTKj3535MJNM6BINs20ceB66G3p056Q1d5DOA563D767R
+qa6h12R32im3JRoakKR1fe1mMrd55oOu6aIn1QJ7MQQF22pBd6c734JQUAq2Sim4,7utg31675EK2n6keITp0Q27DDgQ27q41pct466B167KSK06tQbqCp32,2l377N6h3bBQs62s6GufJJaJP4Mo3Fa3j1u25Q74pu637D5N3HKq1N6NH2qQ1U3j0hG
+Parser extracted:
+  Row 0: [C0t52d0NcogPKMcQ45],[MJdoSU3FPmPQ0lO7kfD],[ddsd0UUGg1NjtbrLk4OHEMG5J1dHC0SE360s2SHtNk]
+  Row 1: [TN3nJP],[1OTApS6aUC0p2MGNQ5hN],[3cKtrfQ1lbI1frTKj3535MJNM6BINs20ceB66G3p056Q1d5DOA563D767R]
+  Row 2: [qa6h12R32im3JRoakKR1fe1mMrd55oOu6aIn1QJ7MQQF22pBd6c734JQUAq2Sim4],[7utg31675EK2n6keITp0Q27DDgQ27q41pct466B167KSK06tQbqCp32],[2l377N6h3bBQs62s6GufJJaJP4Mo3Fa3j1u25Q74pu637D5N3HKq1N6NH2qQ1U3j0hG]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 85]
+Original CSV (clean): 
+Original rows: 0
+Corrupted CSV: 
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 86]
+Original CSV (clean): QklssP1FB0lroar4GM50cL2GiI62Q53KlKuqCt3eb4qkAf2r0aAH3h5AFLR2iFmE6D3Q5nbe,SBNAAuR00H0H0tf7P0JLi55AkBI3ph161U01O7E1,kS1B6B7K073hBGO0Iro6gf2i4Q10TRhfDu412G4em7dUCorFjIUNmH
+f7S4KL4bm5SdH713cq1Ft1f6tCUahg3SG2773quG6520FKp1B44Rch4r5H31cq4P77lDs3HLGFnoo2M,7jRflPRs4QK,dTT36QMo2lffi4Em35u0JcUmph4EGF0gkQEM2R3EQBuE7t6M01m1mmBd6KJu4qIhuKP2LRB0
+A4Ka54,646hU67aNp2e4L5hFlJPbDDBROT6BLC7LEmbbLhaLk5P1R031T647na23A3nM6USQc5KFmoPp5u5eoUCL,la1URnK5m746ojL7MJut65OAKOabt1nT612T1eqN31d2GS50MUGBG67PN3rBAmpPbM2lR5s
+Original rows: 3
+Corrupted CSV: QklssP1FB0lroar4GM50cL2GiI62Q53KlKuqCt3eb4qkAf2r0aAH3h5AFLR2iFmE6D3Q5nbe,SBNAAuR00H0H0tf7P0JLi55AkBI3ph161U01O7E1,kS1B6B7K073hBGO0Iro6gf2i4Q10TRhfDu412G4em7dUCorFjIUNmH
+f7S4KL4bm5SdH713cq1Ft1f6tCUahg3SG2773quG6520FKp1B44Rch4r5H31cq4P77lDs3HLGFnoo2M,7jRflPRs4QK,dTT36QMo2lffi4Em35u0JcUmph4EGF0gkQEM2R3EQBuE7t6M01m1mmBd6KJu4qIhuKP2LRB0
+A4Ka54,646hU67aNp2e4L5hFlJPbDDBROT6BLC7LEmbbLhaLk5P1R031T647na23A3nM6USQc5KFmoPp5u5eoUCL,la1URnK5m746ojL7MJut65OAKOabt1nT612T1eqN31d2GS50MUGBG67PN3rBAmpPbM2lR5s
+Parser extracted:
+  Row 0: [QklssP1FB0lroar4GM50cL2GiI62Q53KlKuqCt3eb4qkAf2r0aAH3h5AFLR2iFmE6D3Q5nbe],[SBNAAuR00H0H0tf7P0JLi55AkBI3ph161U01O7E1],[kS1B6B7K073hBGO0Iro6gf2i4Q10TRhfDu412G4em7dUCorFjIUNmH]
+  Row 1: [f7S4KL4bm5SdH713cq1Ft1f6tCUahg3SG2773quG6520FKp1B44Rch4r5H31cq4P77lDs3HLGFnoo2M],[7jRflPRs4QK],[dTT36QMo2lffi4Em35u0JcUmph4EGF0gkQEM2R3EQBuE7t6M01m1mmBd6KJu4qIhuKP2LRB0]
+  Row 2: [A4Ka54],[646hU67aNp2e4L5hFlJPbDDBROT6BLC7LEmbbLhaLk5P1R031T647na23A3nM6USQc5KFmoPp5u5eoUCL],[la1URnK5m746ojL7MJut65OAKOabt1nT612T1eqN31d2GS50MUGBG67PN3rBAmpPbM2lR5s]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 87]
+Original CSV (clean): AihS3DhUqf3ELr403uO,23b21j0l5RjSSq26jK3TB0cuS3Jr0v21p12poK263Asi2Jj426me6RI4P7trSd3EFlcvg0P0qa4aS0N32,Pei325cvf47Cg34FUPJ2vVFpH47t5F1K3ca560IksqvML7A7vr5OGgl65
+bftibcL1SJL2gkq4V3C2hELk2SVKMA2hE3i0520B6DH3,CDKNKNFsTI2PlF3iJ3Gj0iFLauO6HjA23C1h5I3ctRpUfD7e5HdVg2Ma7H1L21uDOL4Q6uNvF4vn1Guo0k3i,JqKDG6MKOBHMLhr5heT77j5ULPoJsg5Bq01u77hdgoS7GBN0hND
+uQulGvfqE3FlsuTkQSsi3Fg41L1hT2GHR451paapFbH6u31m4N,3H2AH4R313117Hg2KMjgK0V4,P0v241ovTvL73rFLj160om3TNR7JeUtM7G0JNVGiBdG3jIpp5bb1iHBaq
+Original rows: 3
+Corrupted CSV: AihS3DhUqf3EL403uO,23b21j0l5RjSSq26jK3TB0cuS3Jr0v21p12poK263Asi2Jj426me6RI4P7trSd3EFlcvg0P0qa4aS0N32,Pei325cvf47Cg34FUPJ2vVFpH47t5F1K3ca560IksqvML7A7vr5OGgl65
+bftibcL1SJL2gkq4V3C2hELk2SVKMA2hE3i0520B6DH3,CDKNKNFsTI2PlF3iJ3Gj0iFLauO6HjA23C1h5I3ctRpUfD7e5HdVg2Ma7H1L21uDOL4Q6uNvF4vn1Guo0k3i,JqKDG6MKOBHMLhr5heT77j5ULPoJsg5Bq01u77hdgoS7GBN0hND
+uQulGvfqE3FlsuTkQSsi3Fg41L1hT2GHR451paapFbH6u31m4N,3H2AH4R313117Hg2KMjgK0V4,P0v241ovTvL73rFLj160om3TNR7JeUtM7G0JNVGiBdG3jIpp5bb1iHBaq
+Parser extracted:
+  Row 0: [AihS3DhUqf3EL403uO],[23b21j0l5RjSSq26jK3TB0cuS3Jr0v21p12poK263Asi2Jj426me6RI4P7trSd3EFlcvg0P0qa4aS0N32],[Pei325cvf47Cg34FUPJ2vVFpH47t5F1K3ca560IksqvML7A7vr5OGgl65]
+  Row 1: [bftibcL1SJL2gkq4V3C2hELk2SVKMA2hE3i0520B6DH3],[CDKNKNFsTI2PlF3iJ3Gj0iFLauO6HjA23C1h5I3ctRpUfD7e5HdVg2Ma7H1L21uDOL4Q6uNvF4vn1Guo0k3i],[JqKDG6MKOBHMLhr5heT77j5ULPoJsg5Bq01u77hdgoS7GBN0hND]
+  Row 2: [uQulGvfqE3FlsuTkQSsi3Fg41L1hT2GHR451paapFbH6u31m4N],[3H2AH4R313117Hg2KMjgK0V4],[P0v241ovTvL73rFLj160om3TNR7JeUtM7G0JNVGiBdG3jIpp5bb1iHBaq]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 88]
+Original CSV (clean): 2F0t557k30SC74ip746Nr430SkaUAS5D1edvF60Ol54S24e441HgLQ6,U6gpt0U7b264pRK1S2k3PfEPvJfA5sR5r4r6FlT,3650iA0IH36J7i3k6aR3n316ah25p4jslQ
+A3JCV6BM55SCIsF0R42m7fgbjr4qP5iEb1J5L21,5fLPedhJBCo3D1nnhK1QH2Ci32l6m6N1GTJ01sncq6n1Np7QorLjg1DlaJC624liK6QU0c6man0,0CvpGIHR2OiM5LShbf02IA2HELGatn0G3S4QjIu1Heg35mInEeD5AiRDiM11ELS
+5aqmkA7i1KRct0n0,fF6vjMgqk7,15v1OA3h
+Original rows: 3
+Corrupted CSV: 2F0t557k30SC74ip746Nr430SkaUAS5D1edvF60Ol54S24e441HgLQ6,U6gpt0U7b264pRK1S2k3PfEPvJfA5sR5r4r6FlT,3650iA0IH36J7i3k6aR3n316ah25p4jslQ
+A3JCV6BM55SCIsF0R42m7fgbjr4qP5iEb1J5L21,5fLPedhJBCo3D1nnhK1Q"2Ci32l6m6N1GTJ01sncq6n1Np7QorLjg1DlaJC624liK6QU0c6man0,0CvpGIHR2OiM5LShbf02IA2HELGatn0G3S4QjIu1Heg35mInEeD5AiRDiM11ELS
+5aqmkA7i1KRct0n0,fF6vjMgqk7,15v1OA3h
+Parser extracted:
+  Row 0: [2F0t557k30SC74ip746Nr430SkaUAS5D1edvF60Ol54S24e441HgLQ6],[U6gpt0U7b264pRK1S2k3PfEPvJfA5sR5r4r6FlT],[3650iA0IH36J7i3k6aR3n316ah25p4jslQ]
+  Row 1: [A3JCV6BM55SCIsF0R42m7fgbjr4qP5iEb1J5L21],[5fLPedhJBCo3D1nnhK1Q"2Ci32l6m6N1GTJ01sncq6n1Np7QorLjg1DlaJC624liK6QU0c6man0],[0CvpGIHR2OiM5LShbf02IA2HELGatn0G3S4QjIu1Heg35mInEeD5AiRDiM11ELS]
+  Row 2: [5aqmkA7i1KRct0n0],[fF6vjMgqk7],[15v1OA3h]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 89]
+Original CSV (clean): V5dGBJ6sff46ce3bpE7sd3dpg0joU137fi5qEAavJ,r4S1j5U23G3pU2PLQTBmSschB3bqDEg620pAaL1B21qnLJ3P07QUfF2R44rauImdFg73R6f2V645,jE3RH7keR0MM1PfeRL6357JEtkiufQfm0VtoFP2022TE5q4E5tdoR0l6sEi3DdAS43p4rH4
+A6vfgiHlJNNp525DP003C3nTNg131NPS26GIcTA52040dv
+Rq3O1a5j53e3p5EJ7gt2EuS46ohPs42,1Sfva62ud2fpEQeJkdQ1EMV5N3,1Ht03MFCtlt031iOcT7721D0n0LJm4e5u3QBVOjBn7se6cbd4mME33bML6q52rTS762Tj76I5N
+Original rows: 3
+Corrupted CSV: V5dGBJ6sff46ce3bpE7sd3dpg0joU137fi5qEAavJ,r4S1j5U23G3pU2PLQTBmSschB3bqDEg620pAaL1B21qnLJ3P07QUfF2R44rauImdFg73R6f2V645,jE3RH7keR0MM1PfeRL6357JEtkiufQfm0VtoFP2022TE5q4E5tdoR0l6sEi3DdAS43p4rH4
+A6vfgiHlJNNp525DP003C3nTNg131NPS26GIcTA52040dv
+Rq3O1a5j53e3p5EJ7gt2EuS46ohPs42,1Sfva62ud2fpEQeJkdQ1EMV5N3,1Ht03MFCtlt031iOcT7721D0n0LJm4e5u3QBVOjBn7se6cbd4mME33bML6q52rTS762Tj76I5N
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 90]
+Original CSV (clean): V34SO2qLkcc,KPfcp6agrvj3k42VF74a7fkdD3l43P7Rob01o,3hp26pON7QFs147B
+4N24RV345rgE67DCbS0eB5lfc1nOtBOnMTCucg5R2Tfm2gUQLcQ35j6C0NM64gk0m3v57VM,1F70A76phji,q57DsD1G
+flqQFS0v4oNdEhleoD2t7A0VU3TR7hAlJ6gE1gtL37AjnUthA3iao6esNQDaRnP5a,LB64nP2gVFn1tRh5vv1lQL4iA1lns6BrE2D6aID,p05aAv7
+Original rows: 3
+Corrupted CSV: V34SO2qLkcc,KPfcp6agrvj3k42VF74a7fkdD3l43P7Rob01o,3hp26pON7QFs147B
+4N24RV345rgE67DCbS0eB5lfc1nOtBOnMTCucg5R2Tfm2gUQLcQ35j6C0NM64gk0m3v57VM,1F70A76phji,q57DsD1G
+flqQFS0v4oNdEhleoD2t7A0VU3TR7hAlJ6gE1gtL37AjnUthA3iao6esNQDaRnP5a,LB64nP2gVFn1tRh5vv1lQL4iA1lns6BrE2D6aID,p05aAv7
+Parser extracted:
+  Row 0: [V34SO2qLkcc],[KPfcp6agrvj3k42VF74a7fkdD3l43P7Rob01o],[3hp26pON7QFs147B]
+  Row 1: [4N24RV345rgE67DCbS0eB5lfc1nOtBOnMTCucg5R2Tfm2gUQLcQ35j6C0NM64gk0m3v57VM],[1F70A76phji],[q57DsD1G]
+  Row 2: [flqQFS0v4oNdEhleoD2t7A0VU3TR7hAlJ6gE1gtL37AjnUthA3iao6esNQDaRnP5a],[LB64nP2gVFn1tRh5vv1lQL4iA1lns6BrE2D6aID],[p05aAv7]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 91]
+Original CSV (clean): fB7i743i46gm1UaWBvM0tIg0t4r70cSH5U0t,ukNqJKSbB12Ew2Fc63NV706ANf6GlwhTfrq53wU1QP1IdH57oNDhd4Mv46gLKqManbt6p212A1KrdFnVCQsK,a6124fqsp5t1Ig2dp2CGhjANN1m7g7lA74LLe54pdakK75HqH1M5OWbLCk5MJhf4rjfumQ
+WI210q5nO5IpHb15w37SBLMj0POtGU7lw6bNpE3QDRPipNLg5HiuNU0IhHEGcvW6t,Rf,uUne105c5QR7gAKFfl01WFRDgDrDvpM6ALvt3amRnF6LdCeuHN1egFw6Hu0s1WLDMh21ll0F
+O26K,0C3wsWQ3eD7buGM1W67aNoDV435rB2I04,Lp4r4wKAf2lCd27Op3n7q641Ri6H775j5v6FDfs5CvDmv0Wn3pb5e1R3Wh7glH7wSQa1NQW
+Original rows: 3
+Corrupted CSV: fB7i743i46gm1UaWBvM0tIg0t4r70cSH5U0t,ukNqJKSbB12Ew2Fc63NV706ANf6GlwhTfrq53wU1QP1IdH57oNDhd4Mv46gLKqManbt6p212A1KrdFnVCQsK,a6124fqsp5t1Ig2dp2CGhjANN1m7g7lA74LLe54pdakK75HqH1M5OWbLCk5MJhf4rjfumQ
+WI210q5nO5IpHb15w37SBLMj0POtGU7lw6bNpE3QDRPipNLg5HiuNU0IhHEGcvW6t,Rf,uUne105c5QR7gAKFfl01WFR
+DgDrDvpM6ALvt3amRnF6LdCeuHN1egFw6Hu0s1WLDMh21ll0F
+O26K,0C3wsWQ3eD7buGM1W67aNoDV435rB2I04,Lp4r4wKAf2lCd27Op3n7q641Ri6H775j5v6FDfs5CvDmv0Wn3pb5e1R3Wh7glH7wSQa1NQW
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 92]
+Original CSV (clean): 7JmisEGi3v04o7AdoKc15Djnv4GiPDE2Nf6h0Wc0hj227PEaIT6E3w7QG3dw2723t1,wRkV17lb5E0i0c,laDlI6i44VvDc045rWih5UlvT6Af4RiKOV06Au204O5G73gD0anP4JHopjOnq
+5c6vtV3n62g64u23I0V3FV4o2cN5P7604Sk725NO2DlpwGdW7LSu4Bl43AJubA22k1rb5B0BP6,c1n63osnpUFCwWL70cMM74S4ObGqjaor2uWf4wKWmJ6kH1hpjth7uHsBPQiJcDe3H0jc23,05t7cfJ026psuIF4RM5o3liC6NkuhqF2UgR7O7C0HH1miI
+057KR24U1l4,S4iSIP6rbT26Cb,n0w5i32IN4C47E2vCw52Llkla1F7gvh26V7oJG54676C4kAl7pKMJ1D3J720j0i5Ih7u7Ar7GPlJ62Ciqq
+Original rows: 3
+Corrupted CSV: 7JmisEGi3v04o7AdoKc15Djnv4GiPDE2Nf6h0Wc0hj227PEaIT6E3w7QG3dw2723t1,wRkV17lb5E0i0c,laDlI6i44VvDc045rWih5UlvT6Af4RiKOV06Au204O5G73gD0anP4JHopjOnq
+5c6vtV3n62g64u23I0V3FV4o2cN5P7604Sk725NO2DlpwGdW7LSu4Bl43AJubA22k1rb5B0BP6,c1n63osnpUFCwWL70cMM74S4ObGqjaor2uWf4wKWmJ6kH1hpjth7uHsBPQiJcDe3H0jc23,05t7cfJ026psuIF4RM5o3liC6NkuhqF2UgR7O7C0HH1miI
+057KR24U1l4,S4iSIP6rbT26Cb,n0w5i32IN4C47E2vCw52Llkla1F7gvh26V7oJG54676C4kAl7pKMJ1D3J720j0i5Ih7u7Ar7GPlJ62Ciqq
+Parser extracted:
+  Row 0: [7JmisEGi3v04o7AdoKc15Djnv4GiPDE2Nf6h0Wc0hj227PEaIT6E3w7QG3dw2723t1],[wRkV17lb5E0i0c],[laDlI6i44VvDc045rWih5UlvT6Af4RiKOV06Au204O5G73gD0anP4JHopjOnq]
+  Row 1: [5c6vtV3n62g64u23I0V3FV4o2cN5P7604Sk725NO2DlpwGdW7LSu4Bl43AJubA22k1rb5B0BP6],[c1n63osnpUFCwWL70cMM74S4ObGqjaor2uWf4wKWmJ6kH1hpjth7uHsBPQiJcDe3H0jc23],[05t7cfJ026psuIF4RM5o3liC6NkuhqF2UgR7O7C0HH1miI]
+  Row 2: [057KR24U1l4],[S4iSIP6rbT26Cb],[n0w5i32IN4C47E2vCw52Llkla1F7gvh26V7oJG54676C4kAl7pKMJ1D3J720j0i5Ih7u7Ar7GPlJ62Ciqq]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 93]
+Original CSV (clean): U36cEUCHOs,1gdwqDpU5sbA7ecN2GIAEIWecW5433GWMWhj1ouSIf1u7120NcSNuA62mR0KR3PnAk3g2od34LFN4AS,M40quI7dB23PT4VptpTVTs6bI646a5VGkGFRr67cT5FK3cbt7EoWT12udMCn3g710d0edVW7rUpFRBI51CB0GwDG
+Kmj5CS1BJFn,FRW1IeopHawqJPNpO6hRbwgfS24P00rt10J6A362nbGRg43lJPwteVinIu0ooi,GH1WW47fTOsl37Kg4G0372E404P6VrB1hWocQi515gjn34q4lvr2U3jWNfoNBPB14PGTPnEnCgFf2sjljM1
+cMDqG2E6a1S7qAVscT65Uc0onGNC,H34234vhwH75VNA2Ao0d7Hc2QHr22D6O4om2i4BgwBAnG1Nm6bdNA2M0kqVKek2DsiQhHeH1i2kf0QBJg5DIiEU,IeTVg4IT4R4WBLeUiDr1M0Ik2e42T51SLC7FpCkJ7BDqpGFh6nv0F6QhMQqn7j60Wc3uw3410DIMHP50TvR04
+Original rows: 3
+Corrupted CSV: U36cEUCHOs,1gdwqDpU5sbA7ecN2GIAEIWecW5433GWMWhj1ouSIf1u7120NcSNuA62mR0KR3PnAk3g2od34LFN4AS,M40quI7dB23PT4VptpTVTs6bI646a5VGkGFRr67cT5FK3cbt7EoWT12udMCn3g710d0edVW7rUpFRBI51CB0GwDG
+Kmj5CS1BJFn,FRW1IeopHawqJPNpO6hRbwgfS24P00rt10J6A362nbGRg43lJPwteVinIu0ooi,GH1WW47fTOsl37Kg4G0372E404P6VrB1hWocQi515gjn34q4lvr2U3jWNfo
+NBPB14PGTPnEnCgFf2sjljM1
+cMDqG2E6a1S7qAVscT65Uc0onGNC,H34234vhwH75VNA2Ao0d7Hc2QHr22D6O4om2i4BgwBAnG1Nm6bdNA2M0kqVKek2DsiQhHeH1i2kf0QBJg5DIiEU,IeTVg4IT4R4WBLeUiDr1M0Ik2e42T51SLC7FpCkJ7BDqpGFh6nv0F6QhMQqn7j60Wc3uw3410DIMHP50TvR04
+Parser extracted:
+  (empty result)
+Parsed rows: 0
+Recovered (parsedRows >= originalRows/2): NO
+---
+[Test 94]
+Original CSV (clean): aF52NRmT13tTnI1RVb4DcQ5JoJ,242T7bg162f,WCrgF76N5n227jU25as3uM4kfq3w0Ks00aQWJPa30VH61
+1FG2u20u,M3IGmDh7BVuKq2PVtO2Jj424cDv72e7ETds1vpVTervA6Dd155GE2iMb1EEW7d250Sg01G04q0e,fv1545w4A44lm3dQuS5V6SbiFUnsRVn4jCa0OSW7kaM5f0m24A77JJf40G0tgF773VPDd44Pv36b4nvAsB2JTCp55
+40u62lwjNlH2WGaSiB7GGIWSE32S0gQ0B01twuTMW2Le3004fvk1n3B35301kh5BP3056,Brlo6M5j36Em21S0QMg74CiJwb3H5TtF66i0,QkgAV0t
+Original rows: 3
+Corrupted CSV: aF52NRmT13tTnI1RVb4DcQ5JoJ,242T7bg162f,WCrgF76N5n227jU25as3uM4kfq3w0Ks00aQWJPa30VH61
+1FG2u20u,M3IGmDh7XBVuKq2PVtO2Jj424cDv72e7ETds1vpVTervA6Dd155GE2iMb1EEW7d250Sg01G04q0e,fv1545w4A44lm3dQuS5V6SbiFUnsRVn4jCa0OSW7kaM5f0m24A77JJf40G0tgF773VPDd44Pv36b4nvAsB2JTCp55
+40u62lwjNlH2WGaSiB7GGIWSE32S0gQ0B01twuTMW2Le3004fvk1n3B35301kh5BP3056,Brlo6M5j36Em21S0QMg74CiJwb3H5TtF66i0,QkgAV0t
+Parser extracted:
+  Row 0: [aF52NRmT13tTnI1RVb4DcQ5JoJ],[242T7bg162f],[WCrgF76N5n227jU25as3uM4kfq3w0Ks00aQWJPa30VH61]
+  Row 1: [1FG2u20u],[M3IGmDh7XBVuKq2PVtO2Jj424cDv72e7ETds1vpVTervA6Dd155GE2iMb1EEW7d250Sg01G04q0e],[fv1545w4A44lm3dQuS5V6SbiFUnsRVn4jCa0OSW7kaM5f0m24A77JJf40G0tgF773VPDd44Pv36b4nvAsB2JTCp55]
+  Row 2: [40u62lwjNlH2WGaSiB7GGIWSE32S0gQ0B01twuTMW2Le3004fvk1n3B35301kh5BP3056],[Brlo6M5j36Em21S0QMg74CiJwb3H5TtF66i0],[QkgAV0t]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 95]
+Original CSV (clean): ieQD2GUadfji7U3FmOG8,kq31R33WO3sKC21Wj88Kll7utR0wB66IEJ46ivhtK2PeICoRt6O3sT2mGC2B6UH3wGtw1s00xj0R774k,3Ga6wC365jwH3LC3d5N
+5OaNp3lBGjL7l3848hTeSI643ve00Ot5SH5p,x6E8n53Tv6eQV5ChwAKULM6854626QSW4i7BMo6dn,W552nwR4R2ePf0u62krMXMDL5anUvLG1uTKmolWb0753gw805K38MNHE5XcDvjwkfiLDH68H4s4wQapUgP5570bFS
+425g4VGJVQ3iFD8DQjk8otvv8tMw,W6OACIHpGVj6popH00Xhlh2t6NOc7pXhF7dnM4s86dNc325Wu2V72WED22LV0l8kN2xa2v2Sa3WA0X,m564Sf35bRse6tWCoV4611f1IBBG6RwXj30Qn4BwuUA1d0oS7vI
+Original rows: 3
+Corrupted CSV: ieQD2GUadfji7U3FmOG8,kq31R33WO3sKC21Wj88Kll7utR0wB66IEJ46ivhtK2PeICoRt6O3sT2mGC2B6UH3wGtw1s00xj0R774k,3Ga6wC365jwH3LC3d5N
+5OaNp3lBGjL7l3848hTeSI643ve00Ot5SH5p,x6E8n53Tv6eQV5ChwAKULM6854626QSW4i7BMo6dn,W552nwR4R2ePf0u62krMXMDL5anUvLG1uTKmolWb0753gw805K38MNHE5XcDvjwkfiLDH68H4s4wQapUgP5570bFS
+425g4VGJVQ3iFD8DQjk8otvv8tMw,W6OACIHpGVj6popH00Xhlh2t6NOc7pXhF7dnM4s86dNc325Wu2V72WED22LV0l8kN2xa2v2Sa3WA0X,m564Sf35bRse6tWCoV4611f1IBBG6RwXj30Qn4BwuUA1d0oS7vI
+Parser extracted:
+  Row 0: [ieQD2GUadfji7U3FmOG8],[kq31R33WO3sKC21Wj88Kll7utR0wB66IEJ46ivhtK2PeICoRt6O3sT2mGC2B6UH3wGtw1s00xj0R774k],[3Ga6wC365jwH3LC3d5N]
+  Row 1: [5OaNp3lBGjL7l3848hTeSI643ve00Ot5SH5p],[x6E8n53Tv6eQV5ChwAKULM6854626QSW4i7BMo6dn],[W552nwR4R2ePf0u62krMXMDL5anUvLG1uTKmolWb0753gw805K38MNHE5XcDvjwkfiLDH68H4s4wQapUgP5570bFS]
+  Row 2: [425g4VGJVQ3iFD8DQjk8otvv8tMw],[W6OACIHpGVj6popH00Xhlh2t6NOc7pXhF7dnM4s86dNc325Wu2V72WED22LV0l8kN2xa2v2Sa3WA0X],[m564Sf35bRse6tWCoV4611f1IBBG6RwXj30Qn4BwuUA1d0oS7vI]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 96]
+Original CSV (clean): 5DDoK4jb02T5VQ3E14ti64CVkLqedvMbwc1E4l4n53OFh2,7eR2Ulgu00h76o646BQKppgrOSHtmqOVQOrROme61UhlvibIDfiJJA3g036PGXfLIFwi346,5U7QLnVX1kMD7O5Mb0fD3Haa12HGa31s1oaNG8MX1bN12URbrl32314nB
+BvT5H0fF8a7gE,N1a117I3rC8I572se5LLa6hl5r2BNbeFdGQGDH4j3MQq275oR,vXDWL1kr44261m66i3SRe45UR740
+0PS4kd0Sh22IQnTjm5r2QmlNRWJ8UG8P21TIVno8q8LK7mD7s4Dt1J1kGpVD6NevfC22bk0q7UxcA1612Lc,7i80AAh4jx6F3pGm3oh4KkVOo3,iTm8MpL0j
+Original rows: 3
+Corrupted CSV: 5DDoK4jb02T5VQ3E14ti64CVkLqedvMbwc1E4l4n53OFh2,7eR2Ulgu00h76o64C6BQKppgrOSHtmqOVQOrROme61UhlvibIDfiJJA3g036PGXfLIFwi346,5U7QLnVX1kMD7O5Mb0fD3Haa12HGa31s1oaNG8MX1bN12URbrl32314nB
+BvT5H0fF8a7gE,N1a117I3rC8I572se5LLa6hl5r2BNbeFdGQGDH4j3MQq275oR,vXDWL1kr44261m66i3SRe45UR740
+0PS4kd0Sh22IQnTjm5r2QmlNRWJ8UG8P21TIVno8q8LK7mD7s4Dt1J1kGpVD6NevfC22bk0q7UxcA1612Lc,7i80AAh4jx6F3pGm3oh4KkVOo3,iTm8MpL0j
+Parser extracted:
+  Row 0: [5DDoK4jb02T5VQ3E14ti64CVkLqedvMbwc1E4l4n53OFh2],[7eR2Ulgu00h76o64C6BQKppgrOSHtmqOVQOrROme61UhlvibIDfiJJA3g036PGXfLIFwi346],[5U7QLnVX1kMD7O5Mb0fD3Haa12HGa31s1oaNG8MX1bN12URbrl32314nB]
+  Row 1: [BvT5H0fF8a7gE],[N1a117I3rC8I572se5LLa6hl5r2BNbeFdGQGDH4j3MQq275oR],[vXDWL1kr44261m66i3SRe45UR740]
+  Row 2: [0PS4kd0Sh22IQnTjm5r2QmlNRWJ8UG8P21TIVno8q8LK7mD7s4Dt1J1kGpVD6NevfC22bk0q7UxcA1612Lc],[7i80AAh4jx6F3pGm3oh4KkVOo3],[iTm8MpL0j]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 97]
+Original CSV (clean): Opeu10A1p8RabROj536Wb72XwrTQpb05Nwk4DQI4iu7sI1vfovl05vgm8D,5m64qU461T3o0H14vQoF841i2XDJ4,315roep85AtQkVbpRKR3wG17MsrXk1wti0ToGFR4NClI23K4e8RHf3H612RM6Po51218l2bA48
+LBV6m30QrcN0LSo1j3uM3FpHUU54A08o7Wg8F1Tro5GRPa7DoOEreH6H7gH7P,384bdv4U21JeV3BppxsMb5VedhsmKneWjsdjo,2Og2t
+dNKTPL4ITXv4t7m4I7NE2geC1GfaWcE2EAu0fItX,IxGcIARTSq1t5aP6h24KARsgCuc6rJ0453nN6o0hTG0Wwk,7DaAr1kwh5LS7b58Fck3Ci7NT487dSbx
+Original rows: 3
+Corrupted CSV: Opeu10A1p8RabROj536Wb72XwrTQpb05Nwk4DQI4iu7sI1vfovl05vgm8D,5m64qU461T3o0H14vQoF841i2XDJ4,315roep85AtQkVbpRKR3wG17MsrXk1wti0ToGFR4NClI23K4e8RHf3H612RM6Po51218l2bA48
+LBV6m30QrcN0LSo1j3uM3FpHUU54A08o7Wg8F1Tro5GRPa7DoOEreH6H7gH7P,384bdv4U21JeV3BppxsMb5VedhsmKneWjsdjo,2Og2t
+dNKTPL4ITXv4t7m4I7NE2geC1GfaWcE2EAu0fItX,IxGcIARTSq1t5aP6h24KARsgCuc6rJ0453nN6o0hTG0Wwk,7DaAr1kwh5LS7b58Fck3Ci7NT487dSbx
+Parser extracted:
+  Row 0: [Opeu10A1p8RabROj536Wb72XwrTQpb05Nwk4DQI4iu7sI1vfovl05vgm8D],[5m64qU461T3o0H14vQoF841i2XDJ4],[315roep85AtQkVbpRKR3wG17MsrXk1wti0ToGFR4NClI23K4e8RHf3H612RM6Po51218l2bA48]
+  Row 1: [LBV6m30QrcN0LSo1j3uM3FpHUU54A08o7Wg8F1Tro5GRPa7DoOEreH6H7gH7P],[384bdv4U21JeV3BppxsMb5VedhsmKneWjsdjo],[2Og2t]
+  Row 2: [dNKTPL4ITXv4t7m4I7NE2geC1GfaWcE2EAu0fItX],[IxGcIARTSq1t5aP6h24KARsgCuc6rJ0453nN6o0hTG0Wwk],[7DaAr1kwh5LS7b58Fck3Ci7NT487dSbx]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 98]
+Original CSV (clean): 1vXTquI5Wt3s577WWQqAE0iVC1W2vaFsQ0lmqb8tb2b3w11gb85l7MEFsXJRv326RnR7ncHu6n2EBgVr2g44amC3,JW8QD55Eo0Rw2vsRVrT2fhJUT57Lcpvli530L57510tlpkDw52,65oENAFJp73XumtduBwcqS56uSu64d7Uc2Qfi365vOI7qt2aMOs4oATFwuxr5V1ppvD6HNT1JS7a
+X2eO15HrRoIQW186t3Sujtev4aoaUkAaF415E0XqvlSu6qSP45jDS75mP8RG6mcWLrwq3p4E316,ve3R7CmTJ4GV6pW2c6SAk7CqwuE27UTNwGRjP4uxtg238mf2ec22JBi3Xx26bACUjnHTe8i157fDsrQ2,W3rVb731SD3lG0Rt76IU211dpEwDWsCfbc845r32MAkWIDk871bA35Dq42R
+pH0jJ1hrn30fCpfhasHMI5PD68k8me8M2rE6KLkM4NlIrL8JmuUngNfw53xsM3U4BgiE4KgqWsmu4vJL5F08KLWe2Fc8NK6a,6dj1wnLhFRp6X,UgukUB83v0C2h3i7kV18k7XONQ2k5Dw57MKn3U6LqDJ0jVb60H2A0kLT03UOfCgo5ud83iocf1EqRuJLUUEtRSv5nd
+Original rows: 3
+Corrupted CSV: 1vXTquI5Wt3s577WWQqAE0iVC1W2vaFsQ0lmqb8tb2b3w11gb85l7MEFsXJRv326RnR7ncHu6n2EBgVr2g44amC3,JW8QD55Eo0Rw2vsRVrT2fhJUT57Lcpvli530L57510tlpkDw52,65oENAFJp73XumtduBwcqS56uSu64d7Uc2Qfi365vOI7qt2aMOs4oATFwuxr5V1ppvD6HNT1JS7a
+X2eO15HrRoIQW186t3Sujtev4aoaUkAaF415E0XqvlSu6qSP45jDS75mP8RG6mcWLrwq3p4E316,ve3R7CmTJ4GV6pW2c6SAk7CqwuE27UTNwGRjP4uxtg238mf2ec22JBi3Xx26bACUjnHTe8i157fDsrQ2,W3rVb731SD3lG0Rt76IU211dpEwDWsCfbc845r32MAkWIDk871bA35Dq42R
+pH0jJ1hrn30fCfhasHMI5PD68k8me8M2rE6KLkM4NlIrL8JmuUngNfw53xsM3U4BgiE4KgqWsmu4vJL5F08KLWe2Fc8NK6a,6dj1wnLhFRp6X,UgukUB83v0C2h3i7kV18k7XONQ2k5Dw57MKn3U6LqDJ0jVb60H2A0kLT03UOfCgo5ud83iocf1EqRuJLUUEtRSv5nd
+Parser extracted:
+  Row 0: [1vXTquI5Wt3s577WWQqAE0iVC1W2vaFsQ0lmqb8tb2b3w11gb85l7MEFsXJRv326RnR7ncHu6n2EBgVr2g44amC3],[JW8QD55Eo0Rw2vsRVrT2fhJUT57Lcpvli530L57510tlpkDw52],[65oENAFJp73XumtduBwcqS56uSu64d7Uc2Qfi365vOI7qt2aMOs4oATFwuxr5V1ppvD6HNT1JS7a]
+  Row 1: [X2eO15HrRoIQW186t3Sujtev4aoaUkAaF415E0XqvlSu6qSP45jDS75mP8RG6mcWLrwq3p4E316],[ve3R7CmTJ4GV6pW2c6SAk7CqwuE27UTNwGRjP4uxtg238mf2ec22JBi3Xx26bACUjnHTe8i157fDsrQ2],[W3rVb731SD3lG0Rt76IU211dpEwDWsCfbc845r32MAkWIDk871bA35Dq42R]
+  Row 2: [pH0jJ1hrn30fCfhasHMI5PD68k8me8M2rE6KLkM4NlIrL8JmuUngNfw53xsM3U4BgiE4KgqWsmu4vJL5F08KLWe2Fc8NK6a],[6dj1wnLhFRp6X],[UgukUB83v0C2h3i7kV18k7XONQ2k5Dw57MKn3U6LqDJ0jVb60H2A0kLT03UOfCgo5ud83iocf1EqRuJLUUEtRSv5nd]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 99]
+Original CSV (clean): ObK7yGk2FD40T1Jn11W772458epg1Js3Rkgpk3r0ElU30KnScEbe0It4L8wWHXV4a83N5gPF814C1,04o6Vl7LMPC2HNm67K4h8xc2ubE8d1bNTb3rtj0V1k85833Y6t7V23gJKv46Iu6eAr655e8Dlq1TTVfV,8552858OBl3L4ai6Q53R2X8whCmhjTDdI1afA65j5YX
+33bBXwR1nWb5JE76GF5iPKG,avf6m70HpespS476a,us55326lER5Momf3Q4EbpPgmHO278X6Uj350VjO15HCN5R3e8JYroHblR
+sWA11i14pIbV3QR5J6WLxvPPC5yY1OJO5EjUtlr3qqvOXA4WG2341654474,5DR134Q1XI5TErMj3K5S55Eq2fycLWrcGg3B26sP2S37218hVQLupaM7a808dcHQ6W16bEKrv7FD831o4LHe3FeGrprL0,P80yC21sloEUY6q84735b8es1c2q5qqSh08EGudxuOO5JO4M3A3LT4Ok41q1uqcGL1mpQXEfE4w7
+Original rows: 3
+Corrupted CSV: ObK7yGk2FD40T1Jn11W772458epg1Js3Rkgpk3r0ElU30KnScEbe0It4L8wWHXV4a83N5gPF814C1,04o6Vl7LMPC2HNm67K4h8xc2ubE8d1bNTb3rtj0V1k85833Y6t7V23gJKv46Iu6eAr655e8Dlq1TTVfV,8552858OBl3L4ai6Q53R2X8whCmhjTDdI1afA65j5YX
+33bBXwR1nb5JE76GF5iPKG,avf6m70HpespS476a,us55326lER5Momf3Q4EbpPgmHO278X6Uj350VjO15HCN5R3e8JYroHblR
+sWA11i14pIbV3QR5J6WLxvPPC5yY1OJO5EjUtlr3qqvOXA4WG2341654474,5DR134Q1XI5TErMj3K5S55Eq2fycLWrcGg3B26sP2S37218hVQLupaM7a808dcHQ6W16bEKrv7FD831o4LHe3FeGrprL0,P80yC21sloEUY6q84735b8es1c2q5qqSh08EGudxuOO5JO4M3A3LT4Ok41q1uqcGL1mpQXEfE4w7
+Parser extracted:
+  Row 0: [ObK7yGk2FD40T1Jn11W772458epg1Js3Rkgpk3r0ElU30KnScEbe0It4L8wWHXV4a83N5gPF814C1],[04o6Vl7LMPC2HNm67K4h8xc2ubE8d1bNTb3rtj0V1k85833Y6t7V23gJKv46Iu6eAr655e8Dlq1TTVfV],[8552858OBl3L4ai6Q53R2X8whCmhjTDdI1afA65j5YX]
+  Row 1: [33bBXwR1nb5JE76GF5iPKG],[avf6m70HpespS476a],[us55326lER5Momf3Q4EbpPgmHO278X6Uj350VjO15HCN5R3e8JYroHblR]
+  Row 2: [sWA11i14pIbV3QR5J6WLxvPPC5yY1OJO5EjUtlr3qqvOXA4WG2341654474],[5DR134Q1XI5TErMj3K5S55Eq2fycLWrcGg3B26sP2S37218hVQLupaM7a808dcHQ6W16bEKrv7FD831o4LHe3FeGrprL0],[P80yC21sloEUY6q84735b8es1c2q5qqSh08EGudxuOO5JO4M3A3LT4Ok41q1uqcGL1mpQXEfE4w7]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+[Test 100]
+Original CSV (clean): A0QwrhBibx5Yv,3cU3Lkg1lDqgNDDcJ33o0gb8JxTeTvKF20ds068E4hS6xP04n0BavMr45eeYC374dm1OwS1JLdA1mgmh1pt,2477oE4mvHo2b22441crwhkoAMB0r48le6mR84Vglx3NxwhWfEy800e7i1h3L7J6reU46U
+INQyo6Kyvt1C7w2p037Wdtyk82f1r2ih7jp4bbp5vM518003oHw25q1Blt5lqSWOx6m4X7qbtTB3,s3i0Uc4drSQd75a,vPJeNj6quw3GAaUyES05R46sM4o7J2Nl
+r6dgRVlNmqx620vG,jkOYhJ6Is781bQu7LPTfluXJIF,WIf6w235F8whHxN85701060BxuiQG5ach6b7UxUp2JeIBjk3VYyL0C11a4Ug1cW70b7jO3e0Lvt3mw3wKY00M66i23eD
+Original rows: 3
+Corrupted CSV: A0QwrhBibx5Yv,3cU3Lkg1lDqgNDDcJ33o0gb8JxTeTvKF20ds068E4hS6xP04n0BavMr45eeYC374dm1OwS1JLdA1mgmh1pt,2477oE4mvHo2b22441crwhkoAMB0r48le6mR84Vglx3NxwhWfEy800e7i1h3L7J6reU46U
+INQyo6Kyvt1C7w2p037Wdtyk82f1r2ih7jp4bbp5vM518003oHw25q1Blt5lqSWOx6m4X7qbtTB3,s3i0Uc4drSQd75a,vPJeNj6quw3GAaUyES05R46sM4o7J2l
+r6dgRVlNmqx620vG,jkOYhJ6Is781bQu7LPTfluXJIF,WIf6w235F8whHxN85701060BxuiQG5ach6b7UxUp2JeIBjk3VYyL0C11a4Ug1cW70b7jO3e0Lvt3mw3wKY00M66i23eD
+Parser extracted:
+  Row 0: [A0QwrhBibx5Yv],[3cU3Lkg1lDqgNDDcJ33o0gb8JxTeTvKF20ds068E4hS6xP04n0BavMr45eeYC374dm1OwS1JLdA1mgmh1pt],[2477oE4mvHo2b22441crwhkoAMB0r48le6mR84Vglx3NxwhWfEy800e7i1h3L7J6reU46U]
+  Row 1: [INQyo6Kyvt1C7w2p037Wdtyk82f1r2ih7jp4bbp5vM518003oHw25q1Blt5lqSWOx6m4X7qbtTB3],[s3i0Uc4drSQd75a],[vPJeNj6quw3GAaUyES05R46sM4o7J2l]
+  Row 2: [r6dgRVlNmqx620vG],[jkOYhJ6Is781bQu7LPTfluXJIF],[WIf6w235F8whHxN85701060BxuiQG5ach6b7UxUp2JeIBjk3VYyL0C11a4Ug1cW70b7jO3e0Lvt3mw3wKY00M66i23eD]
+Parsed rows: 3
+Recovered (parsedRows >= originalRows/2): YES
+---
+
+=== RESULT ===
+Successful recoveries: 76/300
+Recovery rate: 25.33%

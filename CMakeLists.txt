@@ -6,14 +6,14 @@ project(CSV_Parser_Test)
 # =============================================
 
 # Способ подключения: "CMAKE", "HEADER_ONLY", "SOURCE_FILES", "PREBUILT"
-set(PARSER_TYPE "CMAKE")
+set(PARSER_TYPE "SOURCE_FILES")
 
 # Путь к парсеру:
 #   - для CMAKE: путь к директории с CMakeLists.txt
 #   - для HEADER_ONLY: путь к директории с заголовками
 #   - для SOURCE_FILES: путь к директории с .cpp/.cc файлами
 #   - для PREBUILT: имя библиотеки
-set(PARSER_PATH "external/rapidcsv")
+set(PARSER_PATH "external/csv-parser")
 
 # Дополнительные флаги (если нужны)
 set(PARSER_COMPILE_OPTIONS "-Wno-unused-parameter" "-Wno-sign-compare")
@@ -81,9 +81,9 @@ endif()
 add_subdirectory(lib/rapidcheck)
 
 # Создание пользовательского адаптера
-add_library(user_adapter OBJECT 
-    ${CMAKE_CURRENT_SOURCE_DIR}/user_wrappers/user_wrapper.cpp
-)
+file(GLOB USER_WRAPPERS_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/user_wrappers/*.cpp")
+
+add_library(user_adapter OBJECT ${USER_WRAPPERS_SOURCES})
 
 target_include_directories(user_adapter PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
